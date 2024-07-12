@@ -1,0 +1,10 @@
+﻿<?xml version="1.0"?>
+<DTS:ConnectionManager xmlns:DTS="www.microsoft.com/SqlServer/Dts"
+  DTS:ObjectName="localhost.ETL_AdventureWorksDW2022"
+  DTS:DTSID="{240C875F-1B1B-43F4-89A8-E281EE8FDF52}"
+  DTS:CreationName="ADO.NET:System.Data.SqlClient.SqlConnection, System.Data, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+  <DTS:ObjectData>
+    <DTS:ConnectionManager
+      DTS:ConnectionString="Data Source=localhost;Initial Catalog=ETL_AdventureWorksDW2022;Integrated Security=True;Application Name=SSIS-etl-evaluacion-final-adventure-works-{240C875F-1B1B-43F4-89A8-E281EE8FDF52}localhost.ETL_AdventureWorksDW2022;" />
+  </DTS:ObjectData>
+</DTS:ConnectionManager>
