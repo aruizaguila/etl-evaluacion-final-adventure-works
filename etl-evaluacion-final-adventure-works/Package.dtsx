@@ -11,20 +11,46 @@
   DTS:LocaleID="13322"
   DTS:ObjectName="Package"
   DTS:PackageType="5"
-  DTS:VersionBuild="11"
-  DTS:VersionGUID="{CEFFC83B-1636-41E5-8A9D-B3047224BF1F}">
+  DTS:VersionBuild="27"
+  DTS:VersionGUID="{CD8B844A-083F-484F-980A-FAB060871053}">
   <DTS:Property
     DTS:Name="PackageFormatVersion">8</DTS:Property>
+  <DTS:ConnectionManagers>
+    <DTS:ConnectionManager
+      DTS:refId="Package.ConnectionManagers[localhost.AdventureWorksDW20221]"
+      DTS:CreationName="OLEDB"
+      DTS:DTSID="{C075A2E1-5C30-4D41-924E-5D5FBA291C0D}"
+      DTS:ObjectName="localhost.AdventureWorksDW20221">
+      <DTS:ObjectData>
+        <DTS:ConnectionManager
+          DTS:ConnectRetryCount="1"
+          DTS:ConnectRetryInterval="5"
+          DTS:ConnectionString="Data Source=localhost;Initial Catalog=AdventureWorksDW2022;Provider=MSOLEDBSQL.1;Integrated Security=SSPI;Application Name=SSIS-Package-{C075A2E1-5C30-4D41-924E-5D5FBA291C0D}localhost.AdventureWorksDW20221;Auto Translate=False;" />
+      </DTS:ObjectData>
+    </DTS:ConnectionManager>
+    <DTS:ConnectionManager
+      DTS:refId="Package.ConnectionManagers[localhost.ETL_AdventureWorksDW20221]"
+      DTS:CreationName="OLEDB"
+      DTS:DTSID="{FBC9F641-75E7-4228-AFAD-9E75396F922E}"
+      DTS:ObjectName="localhost.ETL_AdventureWorksDW20221">
+      <DTS:ObjectData>
+        <DTS:ConnectionManager
+          DTS:ConnectRetryCount="1"
+          DTS:ConnectRetryInterval="5"
+          DTS:ConnectionString="Data Source=localhost;Initial Catalog=ETL_AdventureWorksDW2022;Provider=MSOLEDBSQL.1;Integrated Security=SSPI;Application Name=SSIS-Package-{FBC9F641-75E7-4228-AFAD-9E75396F922E}localhost.ETL_AdventureWorksDW20221;Auto Translate=False;" />
+      </DTS:ObjectData>
+    </DTS:ConnectionManager>
+  </DTS:ConnectionManagers>
   <DTS:Variables />
   <DTS:Executables>
     <DTS:Executable
-      DTS:refId="Package\ETL EVALUACION FINAL ADVENTURE WORKS"
+      DTS:refId="Package\Data Flow Task"
       DTS:CreationName="Microsoft.Pipeline"
       DTS:Description="Data Flow Task"
-      DTS:DTSID="{F81E5E4E-37EB-49BA-8A3C-BBBF3C41BA16}"
+      DTS:DTSID="{388EDDF4-13F6-42C5-B2FE-927063C32526}"
       DTS:ExecutableType="Microsoft.Pipeline"
       DTS:LocaleID="-1"
-      DTS:ObjectName="ETL EVALUACION FINAL ADVENTURE WORKS"
+      DTS:ObjectName="Data Flow Task"
       DTS:TaskContact="Performs high-performance data extraction, transformation and loading;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
       <DTS:Variables />
       <DTS:ObjectData>
@@ -32,11 +58,154 @@
           version="1">
           <components>
             <component
-              refId="Package\ETL EVALUACION FINAL ADVENTURE WORKS\DIM DATE ETL"
+              refId="Package\Data Flow Task\COLUMNAS DERIVADAS"
+              componentClassID="Microsoft.DerivedColumn"
+              contactInfo="Derived Column;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;0"
+              description="Creates new column values by applying expressions to transformation input columns. Create new columns or overwrite existing ones. For example, concatenate the values from the 'first name' and 'last name' column to make a 'full name' column."
+              name="COLUMNAS DERIVADAS"
+              usesDispositions="true">
+              <inputs>
+                <input
+                  refId="Package\Data Flow Task\COLUMNAS DERIVADAS.Inputs[Derived Column Input]"
+                  description="Input to the Derived Column Transformation"
+                  name="Derived Column Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\Data Flow Task\COLUMNAS DERIVADAS.Inputs[Derived Column Input].Columns[Weight]"
+                      cachedDataType="r8"
+                      cachedName="Weight"
+                      lineageId="Package\Data Flow Task\Lookup.Outputs[Lookup Match Output].Columns[Weight]" />
+                    <inputColumn
+                      refId="Package\Data Flow Task\COLUMNAS DERIVADAS.Inputs[Derived Column Input].Columns[DealerPrice]"
+                      cachedDataType="cy"
+                      cachedName="DealerPrice"
+                      lineageId="Package\Data Flow Task\Lookup.Outputs[Lookup Match Output].Columns[DealerPrice]" />
+                    <inputColumn
+                      refId="Package\Data Flow Task\COLUMNAS DERIVADAS.Inputs[Derived Column Input].Columns[UnitsBalance]"
+                      cachedDataType="i4"
+                      cachedName="UnitsBalance"
+                      lineageId="Package\Data Flow Task\FACT_PRODUCT_INVENTORY_ORIGEN.Outputs[ADO NET Source Output].Columns[UnitsBalance]" />
+                    <inputColumn
+                      refId="Package\Data Flow Task\COLUMNAS DERIVADAS.Inputs[Derived Column Input].Columns[ListPrice]"
+                      cachedDataType="cy"
+                      cachedName="ListPrice"
+                      lineageId="Package\Data Flow Task\Lookup.Outputs[Lookup Match Output].Columns[ListPrice]" />
+                  </inputColumns>
+                  <externalMetadataColumns />
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\Data Flow Task\COLUMNAS DERIVADAS.Outputs[Derived Column Output]"
+                  description="Default Output of the Derived Column Transformation"
+                  exclusionGroup="1"
+                  name="Derived Column Output"
+                  synchronousInputId="Package\Data Flow Task\COLUMNAS DERIVADAS.Inputs[Derived Column Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Data Flow Task\COLUMNAS DERIVADAS.Outputs[Derived Column Output].Columns[PesoOcupado]"
+                      dataType="r8"
+                      errorOrTruncationOperation="Computation"
+                      errorRowDisposition="FailComponent"
+                      lineageId="Package\Data Flow Task\COLUMNAS DERIVADAS.Outputs[Derived Column Output].Columns[PesoOcupado]"
+                      name="PesoOcupado"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Derived Column Expression"
+                          name="Expression">[REPLACENULL](#{Package\Data Flow Task\Lookup.Outputs[Lookup Match Output].Columns[Weight]},0) * #{Package\Data Flow Task\FACT_PRODUCT_INVENTORY_ORIGEN.Outputs[ADO NET Source Output].Columns[UnitsBalance]}</property>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Derived Column Friendly Expression"
+                          expressionType="Notify"
+                          name="FriendlyExpression">REPLACENULL(Weight,0) * UnitsBalance</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\Data Flow Task\COLUMNAS DERIVADAS.Outputs[Derived Column Output].Columns[TotalDealerPrice]"
+                      dataType="numeric"
+                      errorOrTruncationOperation="Computation"
+                      errorRowDisposition="FailComponent"
+                      lineageId="Package\Data Flow Task\COLUMNAS DERIVADAS.Outputs[Derived Column Output].Columns[TotalDealerPrice]"
+                      name="TotalDealerPrice"
+                      precision="30"
+                      scale="4"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Derived Column Expression"
+                          name="Expression">[REPLACENULL](#{Package\Data Flow Task\Lookup.Outputs[Lookup Match Output].Columns[DealerPrice]},0) * #{Package\Data Flow Task\FACT_PRODUCT_INVENTORY_ORIGEN.Outputs[ADO NET Source Output].Columns[UnitsBalance]}</property>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Derived Column Friendly Expression"
+                          expressionType="Notify"
+                          name="FriendlyExpression">REPLACENULL(DealerPrice,0) * UnitsBalance</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\Data Flow Task\COLUMNAS DERIVADAS.Outputs[Derived Column Output].Columns[TotalListPrice]"
+                      dataType="numeric"
+                      errorOrTruncationOperation="Computation"
+                      errorRowDisposition="FailComponent"
+                      lineageId="Package\Data Flow Task\COLUMNAS DERIVADAS.Outputs[Derived Column Output].Columns[TotalListPrice]"
+                      name="TotalListPrice"
+                      precision="30"
+                      scale="4"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Derived Column Expression"
+                          name="Expression">[REPLACENULL](#{Package\Data Flow Task\Lookup.Outputs[Lookup Match Output].Columns[ListPrice]},0) * #{Package\Data Flow Task\FACT_PRODUCT_INVENTORY_ORIGEN.Outputs[ADO NET Source Output].Columns[UnitsBalance]}</property>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Derived Column Friendly Expression"
+                          expressionType="Notify"
+                          name="FriendlyExpression">REPLACENULL(ListPrice,0) * UnitsBalance</property>
+                      </properties>
+                    </outputColumn>
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\Data Flow Task\COLUMNAS DERIVADAS.Outputs[Derived Column Error Output]"
+                  description="Error Output of the Derived Column Transformation"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="Derived Column Error Output"
+                  synchronousInputId="Package\Data Flow Task\COLUMNAS DERIVADAS.Inputs[Derived Column Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Data Flow Task\COLUMNAS DERIVADAS.Outputs[Derived Column Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Data Flow Task\COLUMNAS DERIVADAS.Outputs[Derived Column Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Data Flow Task\COLUMNAS DERIVADAS.Outputs[Derived Column Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Data Flow Task\COLUMNAS DERIVADAS.Outputs[Derived Column Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\Data Flow Task\FACT_PRODUCT_INVENTORY_ETL"
               componentClassID="Microsoft.ManagedComponentHost"
               contactInfo="Loads data into an ADO.NET-compliant database that uses a database table or view. Load data into a new or existing table. For example, use an ADO.NET provider for ODBC to load data into an ODBC destination.;Microsoft Corporation; Microsoft SQL Server; © Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;2"
               description="Loads data into an ADO.NET-compliant database that uses a database table or view. Load data into a new or existing table. For example, use an ADO.NET provider for ODBC to load data into an ODBC destination."
-              name="DIM DATE ETL"
+              name="FACT_PRODUCT_INVENTORY_ETL"
               usesDispositions="true"
               version="2">
               <properties>
@@ -45,7 +214,7 @@
                   description="The Destination database table name."
                   expressionType="Notify"
                   name="TableOrViewName"
-                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor">"DIM_DATE_ETL"</property>
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor">"FACT_PRODUCT_INVENTORY_ETL"</property>
                 <property
                   dataType="System.Int32"
                   description="Specify the number of rows per batch. The default is 0 which uses the same size as SSIS internal buffer. "
@@ -67,7 +236,7 @@
               </properties>
               <connections>
                 <connection
-                  refId="Package\ETL EVALUACION FINAL ADVENTURE WORKS\DIM DATE ETL.Connections[IDbConnection]"
+                  refId="Package\Data Flow Task\FACT_PRODUCT_INVENTORY_ETL.Connections[IDbConnection]"
                   connectionManagerID="{240C875F-1B1B-43F4-89A8-E281EE8FDF52}:external"
                   connectionManagerRefId="Project.ConnectionManagers[localhost.ETL_AdventureWorksDW2022]"
                   description="Managed connection manager"
@@ -75,237 +244,201 @@
               </connections>
               <inputs>
                 <input
-                  refId="Package\ETL EVALUACION FINAL ADVENTURE WORKS\DIM DATE ETL.Inputs[ADO NET Destination Input]"
+                  refId="Package\Data Flow Task\FACT_PRODUCT_INVENTORY_ETL.Inputs[ADO NET Destination Input]"
                   errorRowDisposition="FailComponent"
                   hasSideEffects="true"
                   name="ADO NET Destination Input">
                   <inputColumns>
                     <inputColumn
-                      refId="Package\ETL EVALUACION FINAL ADVENTURE WORKS\DIM DATE ETL.Inputs[ADO NET Destination Input].Columns[DateKey]"
+                      refId="Package\Data Flow Task\FACT_PRODUCT_INVENTORY_ETL.Inputs[ADO NET Destination Input].Columns[ProductKey]"
+                      cachedDataType="i4"
+                      cachedName="ProductKey"
+                      externalMetadataColumnId="Package\Data Flow Task\FACT_PRODUCT_INVENTORY_ETL.Inputs[ADO NET Destination Input].ExternalColumns[ProductKey]"
+                      lineageId="Package\Data Flow Task\FACT_PRODUCT_INVENTORY_ORIGEN.Outputs[ADO NET Source Output].Columns[ProductKey]" />
+                    <inputColumn
+                      refId="Package\Data Flow Task\FACT_PRODUCT_INVENTORY_ETL.Inputs[ADO NET Destination Input].Columns[DateKey]"
                       cachedDataType="i4"
                       cachedName="DateKey"
-                      externalMetadataColumnId="Package\ETL EVALUACION FINAL ADVENTURE WORKS\DIM DATE ETL.Inputs[ADO NET Destination Input].ExternalColumns[DateKey]"
-                      lineageId="Package\ETL EVALUACION FINAL ADVENTURE WORKS\DIM DATE ORIGEN.Outputs[ADO NET Source Output].Columns[DateKey]" />
+                      externalMetadataColumnId="Package\Data Flow Task\FACT_PRODUCT_INVENTORY_ETL.Inputs[ADO NET Destination Input].ExternalColumns[DateKey]"
+                      lineageId="Package\Data Flow Task\FACT_PRODUCT_INVENTORY_ORIGEN.Outputs[ADO NET Source Output].Columns[DateKey]" />
                     <inputColumn
-                      refId="Package\ETL EVALUACION FINAL ADVENTURE WORKS\DIM DATE ETL.Inputs[ADO NET Destination Input].Columns[FullDateAlternateKey]"
+                      refId="Package\Data Flow Task\FACT_PRODUCT_INVENTORY_ETL.Inputs[ADO NET Destination Input].Columns[MovementDate]"
                       cachedDataType="dbDate"
-                      cachedName="FullDateAlternateKey"
-                      externalMetadataColumnId="Package\ETL EVALUACION FINAL ADVENTURE WORKS\DIM DATE ETL.Inputs[ADO NET Destination Input].ExternalColumns[FullDateAlternateKey]"
-                      lineageId="Package\ETL EVALUACION FINAL ADVENTURE WORKS\DIM DATE ORIGEN.Outputs[ADO NET Source Output].Columns[FullDateAlternateKey]" />
+                      cachedName="MovementDate"
+                      externalMetadataColumnId="Package\Data Flow Task\FACT_PRODUCT_INVENTORY_ETL.Inputs[ADO NET Destination Input].ExternalColumns[MovementDate]"
+                      lineageId="Package\Data Flow Task\FACT_PRODUCT_INVENTORY_ORIGEN.Outputs[ADO NET Source Output].Columns[MovementDate]" />
                     <inputColumn
-                      refId="Package\ETL EVALUACION FINAL ADVENTURE WORKS\DIM DATE ETL.Inputs[ADO NET Destination Input].Columns[DayNumberOfWeek]"
-                      cachedDataType="ui1"
-                      cachedName="DayNumberOfWeek"
-                      externalMetadataColumnId="Package\ETL EVALUACION FINAL ADVENTURE WORKS\DIM DATE ETL.Inputs[ADO NET Destination Input].ExternalColumns[DayNumberOfWeek]"
-                      lineageId="Package\ETL EVALUACION FINAL ADVENTURE WORKS\DIM DATE ORIGEN.Outputs[ADO NET Source Output].Columns[DayNumberOfWeek]" />
+                      refId="Package\Data Flow Task\FACT_PRODUCT_INVENTORY_ETL.Inputs[ADO NET Destination Input].Columns[UnitCost]"
+                      cachedDataType="cy"
+                      cachedName="UnitCost"
+                      externalMetadataColumnId="Package\Data Flow Task\FACT_PRODUCT_INVENTORY_ETL.Inputs[ADO NET Destination Input].ExternalColumns[UnitCost]"
+                      lineageId="Package\Data Flow Task\FACT_PRODUCT_INVENTORY_ORIGEN.Outputs[ADO NET Source Output].Columns[UnitCost]" />
                     <inputColumn
-                      refId="Package\ETL EVALUACION FINAL ADVENTURE WORKS\DIM DATE ETL.Inputs[ADO NET Destination Input].Columns[EnglishDayNameOfWeek]"
+                      refId="Package\Data Flow Task\FACT_PRODUCT_INVENTORY_ETL.Inputs[ADO NET Destination Input].Columns[UnitsIn]"
+                      cachedDataType="i4"
+                      cachedName="UnitsIn"
+                      externalMetadataColumnId="Package\Data Flow Task\FACT_PRODUCT_INVENTORY_ETL.Inputs[ADO NET Destination Input].ExternalColumns[UnitsIn]"
+                      lineageId="Package\Data Flow Task\FACT_PRODUCT_INVENTORY_ORIGEN.Outputs[ADO NET Source Output].Columns[UnitsIn]" />
+                    <inputColumn
+                      refId="Package\Data Flow Task\FACT_PRODUCT_INVENTORY_ETL.Inputs[ADO NET Destination Input].Columns[UnitsOut]"
+                      cachedDataType="i4"
+                      cachedName="UnitsOut"
+                      externalMetadataColumnId="Package\Data Flow Task\FACT_PRODUCT_INVENTORY_ETL.Inputs[ADO NET Destination Input].ExternalColumns[UnitsOut]"
+                      lineageId="Package\Data Flow Task\FACT_PRODUCT_INVENTORY_ORIGEN.Outputs[ADO NET Source Output].Columns[UnitsOut]" />
+                    <inputColumn
+                      refId="Package\Data Flow Task\FACT_PRODUCT_INVENTORY_ETL.Inputs[ADO NET Destination Input].Columns[UnitsBalance]"
+                      cachedDataType="i4"
+                      cachedName="UnitsBalance"
+                      externalMetadataColumnId="Package\Data Flow Task\FACT_PRODUCT_INVENTORY_ETL.Inputs[ADO NET Destination Input].ExternalColumns[UnitsBalance]"
+                      lineageId="Package\Data Flow Task\FACT_PRODUCT_INVENTORY_ORIGEN.Outputs[ADO NET Source Output].Columns[UnitsBalance]" />
+                    <inputColumn
+                      refId="Package\Data Flow Task\FACT_PRODUCT_INVENTORY_ETL.Inputs[ADO NET Destination Input].Columns[Weight]"
+                      cachedDataType="r8"
+                      cachedName="Weight"
+                      externalMetadataColumnId="Package\Data Flow Task\FACT_PRODUCT_INVENTORY_ETL.Inputs[ADO NET Destination Input].ExternalColumns[Weight]"
+                      lineageId="Package\Data Flow Task\Lookup.Outputs[Lookup Match Output].Columns[Weight]" />
+                    <inputColumn
+                      refId="Package\Data Flow Task\FACT_PRODUCT_INVENTORY_ETL.Inputs[ADO NET Destination Input].Columns[Size]"
                       cachedDataType="wstr"
-                      cachedLength="10"
-                      cachedName="EnglishDayNameOfWeek"
-                      externalMetadataColumnId="Package\ETL EVALUACION FINAL ADVENTURE WORKS\DIM DATE ETL.Inputs[ADO NET Destination Input].ExternalColumns[EnglishDayNameOfWeek]"
-                      lineageId="Package\ETL EVALUACION FINAL ADVENTURE WORKS\DIM DATE ORIGEN.Outputs[ADO NET Source Output].Columns[EnglishDayNameOfWeek]" />
+                      cachedLength="50"
+                      cachedName="Size"
+                      externalMetadataColumnId="Package\Data Flow Task\FACT_PRODUCT_INVENTORY_ETL.Inputs[ADO NET Destination Input].ExternalColumns[Size]"
+                      lineageId="Package\Data Flow Task\Lookup.Outputs[Lookup Match Output].Columns[Size]" />
                     <inputColumn
-                      refId="Package\ETL EVALUACION FINAL ADVENTURE WORKS\DIM DATE ETL.Inputs[ADO NET Destination Input].Columns[SpanishDayNameOfWeek]"
-                      cachedDataType="wstr"
-                      cachedLength="10"
-                      cachedName="SpanishDayNameOfWeek"
-                      externalMetadataColumnId="Package\ETL EVALUACION FINAL ADVENTURE WORKS\DIM DATE ETL.Inputs[ADO NET Destination Input].ExternalColumns[SpanishDayNameOfWeek]"
-                      lineageId="Package\ETL EVALUACION FINAL ADVENTURE WORKS\DIM DATE ORIGEN.Outputs[ADO NET Source Output].Columns[SpanishDayNameOfWeek]" />
+                      refId="Package\Data Flow Task\FACT_PRODUCT_INVENTORY_ETL.Inputs[ADO NET Destination Input].Columns[StandardCost]"
+                      cachedDataType="cy"
+                      cachedName="StandardCost"
+                      externalMetadataColumnId="Package\Data Flow Task\FACT_PRODUCT_INVENTORY_ETL.Inputs[ADO NET Destination Input].ExternalColumns[StandardCost]"
+                      lineageId="Package\Data Flow Task\Lookup.Outputs[Lookup Match Output].Columns[StandardCost]" />
                     <inputColumn
-                      refId="Package\ETL EVALUACION FINAL ADVENTURE WORKS\DIM DATE ETL.Inputs[ADO NET Destination Input].Columns[FrenchDayNameOfWeek]"
-                      cachedDataType="wstr"
-                      cachedLength="10"
-                      cachedName="FrenchDayNameOfWeek"
-                      externalMetadataColumnId="Package\ETL EVALUACION FINAL ADVENTURE WORKS\DIM DATE ETL.Inputs[ADO NET Destination Input].ExternalColumns[FrenchDayNameOfWeek]"
-                      lineageId="Package\ETL EVALUACION FINAL ADVENTURE WORKS\DIM DATE ORIGEN.Outputs[ADO NET Source Output].Columns[FrenchDayNameOfWeek]" />
+                      refId="Package\Data Flow Task\FACT_PRODUCT_INVENTORY_ETL.Inputs[ADO NET Destination Input].Columns[ListPrice]"
+                      cachedDataType="cy"
+                      cachedName="ListPrice"
+                      externalMetadataColumnId="Package\Data Flow Task\FACT_PRODUCT_INVENTORY_ETL.Inputs[ADO NET Destination Input].ExternalColumns[ListPrice]"
+                      lineageId="Package\Data Flow Task\Lookup.Outputs[Lookup Match Output].Columns[ListPrice]" />
                     <inputColumn
-                      refId="Package\ETL EVALUACION FINAL ADVENTURE WORKS\DIM DATE ETL.Inputs[ADO NET Destination Input].Columns[DayNumberOfMonth]"
-                      cachedDataType="ui1"
-                      cachedName="DayNumberOfMonth"
-                      externalMetadataColumnId="Package\ETL EVALUACION FINAL ADVENTURE WORKS\DIM DATE ETL.Inputs[ADO NET Destination Input].ExternalColumns[DayNumberOfMonth]"
-                      lineageId="Package\ETL EVALUACION FINAL ADVENTURE WORKS\DIM DATE ORIGEN.Outputs[ADO NET Source Output].Columns[DayNumberOfMonth]" />
+                      refId="Package\Data Flow Task\FACT_PRODUCT_INVENTORY_ETL.Inputs[ADO NET Destination Input].Columns[DealerPrice]"
+                      cachedDataType="cy"
+                      cachedName="DealerPrice"
+                      externalMetadataColumnId="Package\Data Flow Task\FACT_PRODUCT_INVENTORY_ETL.Inputs[ADO NET Destination Input].ExternalColumns[DealerPrice]"
+                      lineageId="Package\Data Flow Task\Lookup.Outputs[Lookup Match Output].Columns[DealerPrice]" />
                     <inputColumn
-                      refId="Package\ETL EVALUACION FINAL ADVENTURE WORKS\DIM DATE ETL.Inputs[ADO NET Destination Input].Columns[DayNumberOfYear]"
-                      cachedDataType="i2"
-                      cachedName="DayNumberOfYear"
-                      externalMetadataColumnId="Package\ETL EVALUACION FINAL ADVENTURE WORKS\DIM DATE ETL.Inputs[ADO NET Destination Input].ExternalColumns[DayNumberOfYear]"
-                      lineageId="Package\ETL EVALUACION FINAL ADVENTURE WORKS\DIM DATE ORIGEN.Outputs[ADO NET Source Output].Columns[DayNumberOfYear]" />
+                      refId="Package\Data Flow Task\FACT_PRODUCT_INVENTORY_ETL.Inputs[ADO NET Destination Input].Columns[PesoOcupado]"
+                      cachedDataType="r8"
+                      cachedName="PesoOcupado"
+                      externalMetadataColumnId="Package\Data Flow Task\FACT_PRODUCT_INVENTORY_ETL.Inputs[ADO NET Destination Input].ExternalColumns[PesoOcupado]"
+                      lineageId="Package\Data Flow Task\COLUMNAS DERIVADAS.Outputs[Derived Column Output].Columns[PesoOcupado]" />
                     <inputColumn
-                      refId="Package\ETL EVALUACION FINAL ADVENTURE WORKS\DIM DATE ETL.Inputs[ADO NET Destination Input].Columns[WeekNumberOfYear]"
-                      cachedDataType="ui1"
-                      cachedName="WeekNumberOfYear"
-                      externalMetadataColumnId="Package\ETL EVALUACION FINAL ADVENTURE WORKS\DIM DATE ETL.Inputs[ADO NET Destination Input].ExternalColumns[WeekNumberOfYear]"
-                      lineageId="Package\ETL EVALUACION FINAL ADVENTURE WORKS\DIM DATE ORIGEN.Outputs[ADO NET Source Output].Columns[WeekNumberOfYear]" />
+                      refId="Package\Data Flow Task\FACT_PRODUCT_INVENTORY_ETL.Inputs[ADO NET Destination Input].Columns[TotalDealerPrice]"
+                      cachedDataType="numeric"
+                      cachedName="TotalDealerPrice"
+                      cachedPrecision="30"
+                      cachedScale="4"
+                      externalMetadataColumnId="Package\Data Flow Task\FACT_PRODUCT_INVENTORY_ETL.Inputs[ADO NET Destination Input].ExternalColumns[TotalDealerPrice]"
+                      lineageId="Package\Data Flow Task\COLUMNAS DERIVADAS.Outputs[Derived Column Output].Columns[TotalDealerPrice]" />
                     <inputColumn
-                      refId="Package\ETL EVALUACION FINAL ADVENTURE WORKS\DIM DATE ETL.Inputs[ADO NET Destination Input].Columns[EnglishMonthName]"
-                      cachedDataType="wstr"
-                      cachedLength="10"
-                      cachedName="EnglishMonthName"
-                      externalMetadataColumnId="Package\ETL EVALUACION FINAL ADVENTURE WORKS\DIM DATE ETL.Inputs[ADO NET Destination Input].ExternalColumns[EnglishMonthName]"
-                      lineageId="Package\ETL EVALUACION FINAL ADVENTURE WORKS\DIM DATE ORIGEN.Outputs[ADO NET Source Output].Columns[EnglishMonthName]" />
-                    <inputColumn
-                      refId="Package\ETL EVALUACION FINAL ADVENTURE WORKS\DIM DATE ETL.Inputs[ADO NET Destination Input].Columns[SpanishMonthName]"
-                      cachedDataType="wstr"
-                      cachedLength="10"
-                      cachedName="SpanishMonthName"
-                      externalMetadataColumnId="Package\ETL EVALUACION FINAL ADVENTURE WORKS\DIM DATE ETL.Inputs[ADO NET Destination Input].ExternalColumns[SpanishMonthName]"
-                      lineageId="Package\ETL EVALUACION FINAL ADVENTURE WORKS\DIM DATE ORIGEN.Outputs[ADO NET Source Output].Columns[SpanishMonthName]" />
-                    <inputColumn
-                      refId="Package\ETL EVALUACION FINAL ADVENTURE WORKS\DIM DATE ETL.Inputs[ADO NET Destination Input].Columns[FrenchMonthName]"
-                      cachedDataType="wstr"
-                      cachedLength="10"
-                      cachedName="FrenchMonthName"
-                      externalMetadataColumnId="Package\ETL EVALUACION FINAL ADVENTURE WORKS\DIM DATE ETL.Inputs[ADO NET Destination Input].ExternalColumns[FrenchMonthName]"
-                      lineageId="Package\ETL EVALUACION FINAL ADVENTURE WORKS\DIM DATE ORIGEN.Outputs[ADO NET Source Output].Columns[FrenchMonthName]" />
-                    <inputColumn
-                      refId="Package\ETL EVALUACION FINAL ADVENTURE WORKS\DIM DATE ETL.Inputs[ADO NET Destination Input].Columns[MonthNumberOfYear]"
-                      cachedDataType="ui1"
-                      cachedName="MonthNumberOfYear"
-                      externalMetadataColumnId="Package\ETL EVALUACION FINAL ADVENTURE WORKS\DIM DATE ETL.Inputs[ADO NET Destination Input].ExternalColumns[MonthNumberOfYear]"
-                      lineageId="Package\ETL EVALUACION FINAL ADVENTURE WORKS\DIM DATE ORIGEN.Outputs[ADO NET Source Output].Columns[MonthNumberOfYear]" />
-                    <inputColumn
-                      refId="Package\ETL EVALUACION FINAL ADVENTURE WORKS\DIM DATE ETL.Inputs[ADO NET Destination Input].Columns[CalendarQuarter]"
-                      cachedDataType="ui1"
-                      cachedName="CalendarQuarter"
-                      externalMetadataColumnId="Package\ETL EVALUACION FINAL ADVENTURE WORKS\DIM DATE ETL.Inputs[ADO NET Destination Input].ExternalColumns[CalendarQuarter]"
-                      lineageId="Package\ETL EVALUACION FINAL ADVENTURE WORKS\DIM DATE ORIGEN.Outputs[ADO NET Source Output].Columns[CalendarQuarter]" />
-                    <inputColumn
-                      refId="Package\ETL EVALUACION FINAL ADVENTURE WORKS\DIM DATE ETL.Inputs[ADO NET Destination Input].Columns[CalendarYear]"
-                      cachedDataType="i2"
-                      cachedName="CalendarYear"
-                      externalMetadataColumnId="Package\ETL EVALUACION FINAL ADVENTURE WORKS\DIM DATE ETL.Inputs[ADO NET Destination Input].ExternalColumns[CalendarYear]"
-                      lineageId="Package\ETL EVALUACION FINAL ADVENTURE WORKS\DIM DATE ORIGEN.Outputs[ADO NET Source Output].Columns[CalendarYear]" />
-                    <inputColumn
-                      refId="Package\ETL EVALUACION FINAL ADVENTURE WORKS\DIM DATE ETL.Inputs[ADO NET Destination Input].Columns[CalendarSemester]"
-                      cachedDataType="ui1"
-                      cachedName="CalendarSemester"
-                      externalMetadataColumnId="Package\ETL EVALUACION FINAL ADVENTURE WORKS\DIM DATE ETL.Inputs[ADO NET Destination Input].ExternalColumns[CalendarSemester]"
-                      lineageId="Package\ETL EVALUACION FINAL ADVENTURE WORKS\DIM DATE ORIGEN.Outputs[ADO NET Source Output].Columns[CalendarSemester]" />
-                    <inputColumn
-                      refId="Package\ETL EVALUACION FINAL ADVENTURE WORKS\DIM DATE ETL.Inputs[ADO NET Destination Input].Columns[FiscalQuarter]"
-                      cachedDataType="ui1"
-                      cachedName="FiscalQuarter"
-                      externalMetadataColumnId="Package\ETL EVALUACION FINAL ADVENTURE WORKS\DIM DATE ETL.Inputs[ADO NET Destination Input].ExternalColumns[FiscalQuarter]"
-                      lineageId="Package\ETL EVALUACION FINAL ADVENTURE WORKS\DIM DATE ORIGEN.Outputs[ADO NET Source Output].Columns[FiscalQuarter]" />
-                    <inputColumn
-                      refId="Package\ETL EVALUACION FINAL ADVENTURE WORKS\DIM DATE ETL.Inputs[ADO NET Destination Input].Columns[FiscalYear]"
-                      cachedDataType="i2"
-                      cachedName="FiscalYear"
-                      externalMetadataColumnId="Package\ETL EVALUACION FINAL ADVENTURE WORKS\DIM DATE ETL.Inputs[ADO NET Destination Input].ExternalColumns[FiscalYear]"
-                      lineageId="Package\ETL EVALUACION FINAL ADVENTURE WORKS\DIM DATE ORIGEN.Outputs[ADO NET Source Output].Columns[FiscalYear]" />
-                    <inputColumn
-                      refId="Package\ETL EVALUACION FINAL ADVENTURE WORKS\DIM DATE ETL.Inputs[ADO NET Destination Input].Columns[FiscalSemester]"
-                      cachedDataType="ui1"
-                      cachedName="FiscalSemester"
-                      externalMetadataColumnId="Package\ETL EVALUACION FINAL ADVENTURE WORKS\DIM DATE ETL.Inputs[ADO NET Destination Input].ExternalColumns[FiscalSemester]"
-                      lineageId="Package\ETL EVALUACION FINAL ADVENTURE WORKS\DIM DATE ORIGEN.Outputs[ADO NET Source Output].Columns[FiscalSemester]" />
+                      refId="Package\Data Flow Task\FACT_PRODUCT_INVENTORY_ETL.Inputs[ADO NET Destination Input].Columns[TotalListPrice]"
+                      cachedDataType="numeric"
+                      cachedName="TotalListPrice"
+                      cachedPrecision="30"
+                      cachedScale="4"
+                      externalMetadataColumnId="Package\Data Flow Task\FACT_PRODUCT_INVENTORY_ETL.Inputs[ADO NET Destination Input].ExternalColumns[TotalListPrice]"
+                      lineageId="Package\Data Flow Task\COLUMNAS DERIVADAS.Outputs[Derived Column Output].Columns[TotalListPrice]" />
                   </inputColumns>
                   <externalMetadataColumns
                     isUsed="True">
                     <externalMetadataColumn
-                      refId="Package\ETL EVALUACION FINAL ADVENTURE WORKS\DIM DATE ETL.Inputs[ADO NET Destination Input].ExternalColumns[DateKey]"
+                      refId="Package\Data Flow Task\FACT_PRODUCT_INVENTORY_ETL.Inputs[ADO NET Destination Input].ExternalColumns[ProductKey]"
+                      dataType="i4"
+                      name="ProductKey" />
+                    <externalMetadataColumn
+                      refId="Package\Data Flow Task\FACT_PRODUCT_INVENTORY_ETL.Inputs[ADO NET Destination Input].ExternalColumns[DateKey]"
                       dataType="i4"
                       name="DateKey" />
                     <externalMetadataColumn
-                      refId="Package\ETL EVALUACION FINAL ADVENTURE WORKS\DIM DATE ETL.Inputs[ADO NET Destination Input].ExternalColumns[FullDateAlternateKey]"
+                      refId="Package\Data Flow Task\FACT_PRODUCT_INVENTORY_ETL.Inputs[ADO NET Destination Input].ExternalColumns[MovementDate]"
                       dataType="dbTimeStamp"
-                      name="FullDateAlternateKey" />
+                      name="MovementDate" />
                     <externalMetadataColumn
-                      refId="Package\ETL EVALUACION FINAL ADVENTURE WORKS\DIM DATE ETL.Inputs[ADO NET Destination Input].ExternalColumns[DayNumberOfWeek]"
-                      dataType="ui1"
-                      name="DayNumberOfWeek" />
+                      refId="Package\Data Flow Task\FACT_PRODUCT_INVENTORY_ETL.Inputs[ADO NET Destination Input].ExternalColumns[UnitCost]"
+                      dataType="numeric"
+                      name="UnitCost"
+                      precision="19"
+                      scale="255" />
                     <externalMetadataColumn
-                      refId="Package\ETL EVALUACION FINAL ADVENTURE WORKS\DIM DATE ETL.Inputs[ADO NET Destination Input].ExternalColumns[EnglishDayNameOfWeek]"
+                      refId="Package\Data Flow Task\FACT_PRODUCT_INVENTORY_ETL.Inputs[ADO NET Destination Input].ExternalColumns[UnitsIn]"
+                      dataType="i4"
+                      name="UnitsIn" />
+                    <externalMetadataColumn
+                      refId="Package\Data Flow Task\FACT_PRODUCT_INVENTORY_ETL.Inputs[ADO NET Destination Input].ExternalColumns[UnitsOut]"
+                      dataType="i4"
+                      name="UnitsOut" />
+                    <externalMetadataColumn
+                      refId="Package\Data Flow Task\FACT_PRODUCT_INVENTORY_ETL.Inputs[ADO NET Destination Input].ExternalColumns[UnitsBalance]"
+                      dataType="i4"
+                      name="UnitsBalance" />
+                    <externalMetadataColumn
+                      refId="Package\Data Flow Task\FACT_PRODUCT_INVENTORY_ETL.Inputs[ADO NET Destination Input].ExternalColumns[Weight]"
+                      dataType="r8"
+                      name="Weight" />
+                    <externalMetadataColumn
+                      refId="Package\Data Flow Task\FACT_PRODUCT_INVENTORY_ETL.Inputs[ADO NET Destination Input].ExternalColumns[Size]"
                       dataType="wstr"
-                      length="10"
-                      name="EnglishDayNameOfWeek" />
+                      length="50"
+                      name="Size" />
                     <externalMetadataColumn
-                      refId="Package\ETL EVALUACION FINAL ADVENTURE WORKS\DIM DATE ETL.Inputs[ADO NET Destination Input].ExternalColumns[SpanishDayNameOfWeek]"
-                      dataType="wstr"
-                      length="10"
-                      name="SpanishDayNameOfWeek" />
+                      refId="Package\Data Flow Task\FACT_PRODUCT_INVENTORY_ETL.Inputs[ADO NET Destination Input].ExternalColumns[StandardCost]"
+                      dataType="numeric"
+                      name="StandardCost"
+                      precision="19"
+                      scale="255" />
                     <externalMetadataColumn
-                      refId="Package\ETL EVALUACION FINAL ADVENTURE WORKS\DIM DATE ETL.Inputs[ADO NET Destination Input].ExternalColumns[FrenchDayNameOfWeek]"
-                      dataType="wstr"
-                      length="10"
-                      name="FrenchDayNameOfWeek" />
+                      refId="Package\Data Flow Task\FACT_PRODUCT_INVENTORY_ETL.Inputs[ADO NET Destination Input].ExternalColumns[ListPrice]"
+                      dataType="numeric"
+                      name="ListPrice"
+                      precision="19"
+                      scale="255" />
                     <externalMetadataColumn
-                      refId="Package\ETL EVALUACION FINAL ADVENTURE WORKS\DIM DATE ETL.Inputs[ADO NET Destination Input].ExternalColumns[DayNumberOfMonth]"
-                      dataType="ui1"
-                      name="DayNumberOfMonth" />
+                      refId="Package\Data Flow Task\FACT_PRODUCT_INVENTORY_ETL.Inputs[ADO NET Destination Input].ExternalColumns[DealerPrice]"
+                      dataType="numeric"
+                      name="DealerPrice"
+                      precision="19"
+                      scale="255" />
                     <externalMetadataColumn
-                      refId="Package\ETL EVALUACION FINAL ADVENTURE WORKS\DIM DATE ETL.Inputs[ADO NET Destination Input].ExternalColumns[DayNumberOfYear]"
-                      dataType="i2"
-                      name="DayNumberOfYear" />
+                      refId="Package\Data Flow Task\FACT_PRODUCT_INVENTORY_ETL.Inputs[ADO NET Destination Input].ExternalColumns[PesoOcupado]"
+                      dataType="r8"
+                      name="PesoOcupado" />
                     <externalMetadataColumn
-                      refId="Package\ETL EVALUACION FINAL ADVENTURE WORKS\DIM DATE ETL.Inputs[ADO NET Destination Input].ExternalColumns[WeekNumberOfYear]"
-                      dataType="ui1"
-                      name="WeekNumberOfYear" />
+                      refId="Package\Data Flow Task\FACT_PRODUCT_INVENTORY_ETL.Inputs[ADO NET Destination Input].ExternalColumns[TotalDealerPrice]"
+                      dataType="numeric"
+                      name="TotalDealerPrice"
+                      precision="19"
+                      scale="255" />
                     <externalMetadataColumn
-                      refId="Package\ETL EVALUACION FINAL ADVENTURE WORKS\DIM DATE ETL.Inputs[ADO NET Destination Input].ExternalColumns[EnglishMonthName]"
-                      dataType="wstr"
-                      length="10"
-                      name="EnglishMonthName" />
-                    <externalMetadataColumn
-                      refId="Package\ETL EVALUACION FINAL ADVENTURE WORKS\DIM DATE ETL.Inputs[ADO NET Destination Input].ExternalColumns[SpanishMonthName]"
-                      dataType="wstr"
-                      length="10"
-                      name="SpanishMonthName" />
-                    <externalMetadataColumn
-                      refId="Package\ETL EVALUACION FINAL ADVENTURE WORKS\DIM DATE ETL.Inputs[ADO NET Destination Input].ExternalColumns[FrenchMonthName]"
-                      dataType="wstr"
-                      length="10"
-                      name="FrenchMonthName" />
-                    <externalMetadataColumn
-                      refId="Package\ETL EVALUACION FINAL ADVENTURE WORKS\DIM DATE ETL.Inputs[ADO NET Destination Input].ExternalColumns[MonthNumberOfYear]"
-                      dataType="ui1"
-                      name="MonthNumberOfYear" />
-                    <externalMetadataColumn
-                      refId="Package\ETL EVALUACION FINAL ADVENTURE WORKS\DIM DATE ETL.Inputs[ADO NET Destination Input].ExternalColumns[CalendarQuarter]"
-                      dataType="ui1"
-                      name="CalendarQuarter" />
-                    <externalMetadataColumn
-                      refId="Package\ETL EVALUACION FINAL ADVENTURE WORKS\DIM DATE ETL.Inputs[ADO NET Destination Input].ExternalColumns[CalendarYear]"
-                      dataType="i2"
-                      name="CalendarYear" />
-                    <externalMetadataColumn
-                      refId="Package\ETL EVALUACION FINAL ADVENTURE WORKS\DIM DATE ETL.Inputs[ADO NET Destination Input].ExternalColumns[CalendarSemester]"
-                      dataType="ui1"
-                      name="CalendarSemester" />
-                    <externalMetadataColumn
-                      refId="Package\ETL EVALUACION FINAL ADVENTURE WORKS\DIM DATE ETL.Inputs[ADO NET Destination Input].ExternalColumns[FiscalQuarter]"
-                      dataType="ui1"
-                      name="FiscalQuarter" />
-                    <externalMetadataColumn
-                      refId="Package\ETL EVALUACION FINAL ADVENTURE WORKS\DIM DATE ETL.Inputs[ADO NET Destination Input].ExternalColumns[FiscalYear]"
-                      dataType="i2"
-                      name="FiscalYear" />
-                    <externalMetadataColumn
-                      refId="Package\ETL EVALUACION FINAL ADVENTURE WORKS\DIM DATE ETL.Inputs[ADO NET Destination Input].ExternalColumns[FiscalSemester]"
-                      dataType="ui1"
-                      name="FiscalSemester" />
+                      refId="Package\Data Flow Task\FACT_PRODUCT_INVENTORY_ETL.Inputs[ADO NET Destination Input].ExternalColumns[TotalListPrice]"
+                      dataType="i4"
+                      name="TotalListPrice" />
                   </externalMetadataColumns>
                 </input>
               </inputs>
               <outputs>
                 <output
-                  refId="Package\ETL EVALUACION FINAL ADVENTURE WORKS\DIM DATE ETL.Outputs[ADO NET Destination Error Output]"
+                  refId="Package\Data Flow Task\FACT_PRODUCT_INVENTORY_ETL.Outputs[ADO NET Destination Error Output]"
                   exclusionGroup="1"
                   isErrorOut="true"
                   name="ADO NET Destination Error Output"
-                  synchronousInputId="Package\ETL EVALUACION FINAL ADVENTURE WORKS\DIM DATE ETL.Inputs[ADO NET Destination Input]">
+                  synchronousInputId="Package\Data Flow Task\FACT_PRODUCT_INVENTORY_ETL.Inputs[ADO NET Destination Input]">
                   <outputColumns>
                     <outputColumn
-                      refId="Package\ETL EVALUACION FINAL ADVENTURE WORKS\DIM DATE ETL.Outputs[ADO NET Destination Error Output].Columns[ErrorCode]"
+                      refId="Package\Data Flow Task\FACT_PRODUCT_INVENTORY_ETL.Outputs[ADO NET Destination Error Output].Columns[ErrorCode]"
                       dataType="i4"
-                      lineageId="Package\ETL EVALUACION FINAL ADVENTURE WORKS\DIM DATE ETL.Outputs[ADO NET Destination Error Output].Columns[ErrorCode]"
+                      lineageId="Package\Data Flow Task\FACT_PRODUCT_INVENTORY_ETL.Outputs[ADO NET Destination Error Output].Columns[ErrorCode]"
                       name="ErrorCode"
                       specialFlags="1" />
                     <outputColumn
-                      refId="Package\ETL EVALUACION FINAL ADVENTURE WORKS\DIM DATE ETL.Outputs[ADO NET Destination Error Output].Columns[ErrorColumn]"
+                      refId="Package\Data Flow Task\FACT_PRODUCT_INVENTORY_ETL.Outputs[ADO NET Destination Error Output].Columns[ErrorColumn]"
                       dataType="i4"
-                      lineageId="Package\ETL EVALUACION FINAL ADVENTURE WORKS\DIM DATE ETL.Outputs[ADO NET Destination Error Output].Columns[ErrorColumn]"
+                      lineageId="Package\Data Flow Task\FACT_PRODUCT_INVENTORY_ETL.Outputs[ADO NET Destination Error Output].Columns[ErrorColumn]"
                       name="ErrorColumn"
                       specialFlags="2" />
                   </outputColumns>
@@ -313,6 +446,460 @@
                 </output>
               </outputs>
             </component>
+            <component
+              refId="Package\Data Flow Task\FACT_PRODUCT_INVENTORY_ORIGEN"
+              componentClassID="Microsoft.ManagedComponentHost"
+              contactInfo="Consumes data from SQL Server, OLE DB, ODBC, or Oracle, using the corresponding .NET Framework data provider. Use a Transact-SQL statement to define the result set. For example, extract data from SQL Server with the .NET Framework data provider for SQL Server.;Microsoft Corporation; Microsoft SQL Server; © Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;4"
+              description="Consumes data from SQL Server, OLE DB, ODBC, or Oracle, using the corresponding .NET Framework data provider. Use a Transact-SQL statement to define the result set. For example, extract data from SQL Server with the .NET Framework data provider for SQL Server."
+              name="FACT_PRODUCT_INVENTORY_ORIGEN"
+              usesDispositions="true"
+              version="4">
+              <properties>
+                <property
+                  dataType="System.String"
+                  description="Specifies the SQL statement used by the component to extract data."
+                  expressionType="Notify"
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor"></property>
+                <property
+                  dataType="System.Int32"
+                  description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                  name="CommandTimeout">30</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indicates whether to allow non-string external columns to be implicitly converted to strings at the output columns."
+                  name="AllowImplicitStringConversion">true</property>
+                <property
+                  dataType="System.String"
+                  description="The Source database table name."
+                  expressionType="Notify"
+                  name="TableOrViewName"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor">"dbo"."FactProductInventory"</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specify the mode to retrieve external column information"
+                  name="AccessMode"
+                  typeConverter="Microsoft.SqlServer.Dts.Pipeline.DataReaderSourceAdapter+EnumToStringConverter">0</property>
+                <property
+                  dataType="System.String"
+                  name="UserComponentTypeName">Microsoft.DataReaderSourceAdapter</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\Data Flow Task\FACT_PRODUCT_INVENTORY_ORIGEN.Connections[IDbConnection]"
+                  connectionManagerID="{AEE47F92-F543-498B-9D83-02AD93978101}:external"
+                  connectionManagerRefId="Project.ConnectionManagers[localhost.AdventureWorksDW2022]"
+                  description="Managed connection manager"
+                  name="IDbConnection" />
+              </connections>
+              <outputs>
+                <output
+                  refId="Package\Data Flow Task\FACT_PRODUCT_INVENTORY_ORIGEN.Outputs[ADO NET Source Output]"
+                  name="ADO NET Source Output">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Data Flow Task\FACT_PRODUCT_INVENTORY_ORIGEN.Outputs[ADO NET Source Output].Columns[ProductKey]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Data Flow Task\FACT_PRODUCT_INVENTORY_ORIGEN.Outputs[ADO NET Source Output].ExternalColumns[ProductKey]"
+                      lineageId="Package\Data Flow Task\FACT_PRODUCT_INVENTORY_ORIGEN.Outputs[ADO NET Source Output].Columns[ProductKey]"
+                      name="ProductKey"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Data Flow Task\FACT_PRODUCT_INVENTORY_ORIGEN.Outputs[ADO NET Source Output].Columns[DateKey]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Data Flow Task\FACT_PRODUCT_INVENTORY_ORIGEN.Outputs[ADO NET Source Output].ExternalColumns[DateKey]"
+                      lineageId="Package\Data Flow Task\FACT_PRODUCT_INVENTORY_ORIGEN.Outputs[ADO NET Source Output].Columns[DateKey]"
+                      name="DateKey"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Data Flow Task\FACT_PRODUCT_INVENTORY_ORIGEN.Outputs[ADO NET Source Output].Columns[MovementDate]"
+                      dataType="dbDate"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Data Flow Task\FACT_PRODUCT_INVENTORY_ORIGEN.Outputs[ADO NET Source Output].ExternalColumns[MovementDate]"
+                      lineageId="Package\Data Flow Task\FACT_PRODUCT_INVENTORY_ORIGEN.Outputs[ADO NET Source Output].Columns[MovementDate]"
+                      name="MovementDate"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Data Flow Task\FACT_PRODUCT_INVENTORY_ORIGEN.Outputs[ADO NET Source Output].Columns[UnitCost]"
+                      dataType="cy"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Data Flow Task\FACT_PRODUCT_INVENTORY_ORIGEN.Outputs[ADO NET Source Output].ExternalColumns[UnitCost]"
+                      lineageId="Package\Data Flow Task\FACT_PRODUCT_INVENTORY_ORIGEN.Outputs[ADO NET Source Output].Columns[UnitCost]"
+                      name="UnitCost"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Data Flow Task\FACT_PRODUCT_INVENTORY_ORIGEN.Outputs[ADO NET Source Output].Columns[UnitsIn]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Data Flow Task\FACT_PRODUCT_INVENTORY_ORIGEN.Outputs[ADO NET Source Output].ExternalColumns[UnitsIn]"
+                      lineageId="Package\Data Flow Task\FACT_PRODUCT_INVENTORY_ORIGEN.Outputs[ADO NET Source Output].Columns[UnitsIn]"
+                      name="UnitsIn"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Data Flow Task\FACT_PRODUCT_INVENTORY_ORIGEN.Outputs[ADO NET Source Output].Columns[UnitsOut]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Data Flow Task\FACT_PRODUCT_INVENTORY_ORIGEN.Outputs[ADO NET Source Output].ExternalColumns[UnitsOut]"
+                      lineageId="Package\Data Flow Task\FACT_PRODUCT_INVENTORY_ORIGEN.Outputs[ADO NET Source Output].Columns[UnitsOut]"
+                      name="UnitsOut"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Data Flow Task\FACT_PRODUCT_INVENTORY_ORIGEN.Outputs[ADO NET Source Output].Columns[UnitsBalance]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Data Flow Task\FACT_PRODUCT_INVENTORY_ORIGEN.Outputs[ADO NET Source Output].ExternalColumns[UnitsBalance]"
+                      lineageId="Package\Data Flow Task\FACT_PRODUCT_INVENTORY_ORIGEN.Outputs[ADO NET Source Output].Columns[UnitsBalance]"
+                      name="UnitsBalance"
+                      truncationRowDisposition="FailComponent" />
+                  </outputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\Data Flow Task\FACT_PRODUCT_INVENTORY_ORIGEN.Outputs[ADO NET Source Output].ExternalColumns[ProductKey]"
+                      dataType="i4"
+                      name="ProductKey" />
+                    <externalMetadataColumn
+                      refId="Package\Data Flow Task\FACT_PRODUCT_INVENTORY_ORIGEN.Outputs[ADO NET Source Output].ExternalColumns[DateKey]"
+                      dataType="i4"
+                      name="DateKey" />
+                    <externalMetadataColumn
+                      refId="Package\Data Flow Task\FACT_PRODUCT_INVENTORY_ORIGEN.Outputs[ADO NET Source Output].ExternalColumns[MovementDate]"
+                      dataType="dbDate"
+                      name="MovementDate" />
+                    <externalMetadataColumn
+                      refId="Package\Data Flow Task\FACT_PRODUCT_INVENTORY_ORIGEN.Outputs[ADO NET Source Output].ExternalColumns[UnitCost]"
+                      dataType="cy"
+                      name="UnitCost" />
+                    <externalMetadataColumn
+                      refId="Package\Data Flow Task\FACT_PRODUCT_INVENTORY_ORIGEN.Outputs[ADO NET Source Output].ExternalColumns[UnitsIn]"
+                      dataType="i4"
+                      name="UnitsIn" />
+                    <externalMetadataColumn
+                      refId="Package\Data Flow Task\FACT_PRODUCT_INVENTORY_ORIGEN.Outputs[ADO NET Source Output].ExternalColumns[UnitsOut]"
+                      dataType="i4"
+                      name="UnitsOut" />
+                    <externalMetadataColumn
+                      refId="Package\Data Flow Task\FACT_PRODUCT_INVENTORY_ORIGEN.Outputs[ADO NET Source Output].ExternalColumns[UnitsBalance]"
+                      dataType="i4"
+                      name="UnitsBalance" />
+                  </externalMetadataColumns>
+                </output>
+                <output
+                  refId="Package\Data Flow Task\FACT_PRODUCT_INVENTORY_ORIGEN.Outputs[ADO NET Source Error Output]"
+                  isErrorOut="true"
+                  name="ADO NET Source Error Output">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Data Flow Task\FACT_PRODUCT_INVENTORY_ORIGEN.Outputs[ADO NET Source Error Output].Columns[ProductKey]"
+                      dataType="i4"
+                      lineageId="Package\Data Flow Task\FACT_PRODUCT_INVENTORY_ORIGEN.Outputs[ADO NET Source Error Output].Columns[ProductKey]"
+                      name="ProductKey" />
+                    <outputColumn
+                      refId="Package\Data Flow Task\FACT_PRODUCT_INVENTORY_ORIGEN.Outputs[ADO NET Source Error Output].Columns[DateKey]"
+                      dataType="i4"
+                      lineageId="Package\Data Flow Task\FACT_PRODUCT_INVENTORY_ORIGEN.Outputs[ADO NET Source Error Output].Columns[DateKey]"
+                      name="DateKey" />
+                    <outputColumn
+                      refId="Package\Data Flow Task\FACT_PRODUCT_INVENTORY_ORIGEN.Outputs[ADO NET Source Error Output].Columns[MovementDate]"
+                      dataType="dbDate"
+                      lineageId="Package\Data Flow Task\FACT_PRODUCT_INVENTORY_ORIGEN.Outputs[ADO NET Source Error Output].Columns[MovementDate]"
+                      name="MovementDate" />
+                    <outputColumn
+                      refId="Package\Data Flow Task\FACT_PRODUCT_INVENTORY_ORIGEN.Outputs[ADO NET Source Error Output].Columns[UnitCost]"
+                      dataType="cy"
+                      lineageId="Package\Data Flow Task\FACT_PRODUCT_INVENTORY_ORIGEN.Outputs[ADO NET Source Error Output].Columns[UnitCost]"
+                      name="UnitCost" />
+                    <outputColumn
+                      refId="Package\Data Flow Task\FACT_PRODUCT_INVENTORY_ORIGEN.Outputs[ADO NET Source Error Output].Columns[UnitsIn]"
+                      dataType="i4"
+                      lineageId="Package\Data Flow Task\FACT_PRODUCT_INVENTORY_ORIGEN.Outputs[ADO NET Source Error Output].Columns[UnitsIn]"
+                      name="UnitsIn" />
+                    <outputColumn
+                      refId="Package\Data Flow Task\FACT_PRODUCT_INVENTORY_ORIGEN.Outputs[ADO NET Source Error Output].Columns[UnitsOut]"
+                      dataType="i4"
+                      lineageId="Package\Data Flow Task\FACT_PRODUCT_INVENTORY_ORIGEN.Outputs[ADO NET Source Error Output].Columns[UnitsOut]"
+                      name="UnitsOut" />
+                    <outputColumn
+                      refId="Package\Data Flow Task\FACT_PRODUCT_INVENTORY_ORIGEN.Outputs[ADO NET Source Error Output].Columns[UnitsBalance]"
+                      dataType="i4"
+                      lineageId="Package\Data Flow Task\FACT_PRODUCT_INVENTORY_ORIGEN.Outputs[ADO NET Source Error Output].Columns[UnitsBalance]"
+                      name="UnitsBalance" />
+                    <outputColumn
+                      refId="Package\Data Flow Task\FACT_PRODUCT_INVENTORY_ORIGEN.Outputs[ADO NET Source Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Data Flow Task\FACT_PRODUCT_INVENTORY_ORIGEN.Outputs[ADO NET Source Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Data Flow Task\FACT_PRODUCT_INVENTORY_ORIGEN.Outputs[ADO NET Source Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Data Flow Task\FACT_PRODUCT_INVENTORY_ORIGEN.Outputs[ADO NET Source Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\Data Flow Task\Lookup"
+              componentClassID="Microsoft.Lookup"
+              contactInfo="Lookup;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;6"
+              description="Joins additional columns to the data flow by looking up values in a table. For example, join to the 'employee id' column the employees table to get 'hire date' and 'employee name'. We recommend this transformation when the lookup table can fit into memory."
+              name="Lookup"
+              usesDispositions="true"
+              version="6">
+              <properties>
+                <property
+                  dataType="System.String"
+                  description="Specifies the SQL statement that generates the lookup table."
+                  expressionType="Notify"
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor">select * from [dbo].[DIM_PRODUCT_ETL]</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies a SQL statement that uses parameters to generate the lookup table."
+                  expressionType="Notify"
+                  name="SqlCommandParam"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor">select * from (select * from [dbo].[DIM_PRODUCT_ETL]) [refTable]
+where [refTable].[ProductKey] = ?</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the type of connection used to access the reference dataset."
+                  name="ConnectionType"
+                  typeConverter="LookupConnectionType">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the cache type of the lookup table."
+                  name="CacheType"
+                  typeConverter="CacheType">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies how the Lookup transformation handles rows without matching entries in the reference data set."
+                  name="NoMatchBehavior"
+                  typeConverter="LookupNoMatchBehavior">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the percentage of the cache that is allocated for rows with no matching entries in the reference dataset."
+                  name="NoMatchCachePercentage">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Maximum Memory Usage for Reference Cache on a 32 bit platform."
+                  name="MaxMemoryUsage">25</property>
+                <property
+                  dataType="System.Int64"
+                  description="Maximum Memory Usage for Reference Cache on a 64 bit platform."
+                  name="MaxMemoryUsage64">25</property>
+                <property
+                  dataType="System.String"
+                  description="Indicates whether to reference metadata in an XML format."
+                  name="ReferenceMetadataXml">&lt;referenceMetadata&gt;&lt;referenceColumns&gt;&lt;referenceColumn name="ProductKey" dataType="DT_I4" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="ProductAlternateKey" dataType="DT_WSTR" length="25" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="ProductSubcategoryKey" dataType="DT_I4" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="WeightUnitMeasureCode" dataType="DT_WSTR" length="3" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="SizeUnitMeasureCode" dataType="DT_WSTR" length="3" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="EnglishProductName" dataType="DT_WSTR" length="50" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="SpanishProductName" dataType="DT_WSTR" length="50" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="FrenchProductName" dataType="DT_WSTR" length="50" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="StandardCost" dataType="DT_CY" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="FinishedGoodsFlag" dataType="DT_BOOL" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="Color" dataType="DT_WSTR" length="15" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="SafetyStockLevel" dataType="DT_I2" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="ReorderPoint" dataType="DT_I2" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="ListPrice" dataType="DT_CY" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="Size" dataType="DT_WSTR" length="50" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="SizeRange" dataType="DT_WSTR" length="50" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="Weight" dataType="DT_R8" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="DaysToManufacture" dataType="DT_I4" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="ProductLine" dataType="DT_WSTR" length="2" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="DealerPrice" dataType="DT_CY" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="Class" dataType="DT_WSTR" length="2" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="Style" dataType="DT_WSTR" length="2" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="ModelName" dataType="DT_WSTR" length="50" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="EnglishDescription" dataType="DT_WSTR" length="400" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="FrenchDescription" dataType="DT_WSTR" length="400" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="ChineseDescription" dataType="DT_WSTR" length="400" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="ArabicDescription" dataType="DT_WSTR" length="400" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="HebrewDescription" dataType="DT_WSTR" length="400" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="ThaiDescription" dataType="DT_WSTR" length="400" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="GermanDescription" dataType="DT_WSTR" length="400" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="JapaneseDescription" dataType="DT_WSTR" length="400" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="TurkishDescription" dataType="DT_WSTR" length="400" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="StartDate" dataType="DT_DBTIMESTAMP" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="EndDate" dataType="DT_DBTIMESTAMP" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="Status" dataType="DT_WSTR" length="7" precision="0" scale="0" codePage="0"/&gt;&lt;/referenceColumns&gt;&lt;/referenceMetadata&gt;</property>
+                <property
+                  containsID="true"
+                  dataType="System.String"
+                  description="Specifies the list of lineage identifiers that map to the parameters that the SQL statement in the SQLCommand property uses. Entries in the list are separated by semicolons."
+                  name="ParameterMap">#{Package\Data Flow Task\FACT_PRODUCT_INVENTORY_ORIGEN.Outputs[ADO NET Source Output].Columns[ProductKey]};</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the column code page to use when code page information is unavailable from the data source."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Determines whether duplicate keys in the reference data should be treated as errors when full cache mode is used."
+                  name="TreatDuplicateKeysAsError">false</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\Data Flow Task\Lookup.Connections[OleDbConnection]"
+                  connectionManagerID="Package.ConnectionManagers[localhost.ETL_AdventureWorksDW20221]"
+                  connectionManagerRefId="Package.ConnectionManagers[localhost.ETL_AdventureWorksDW20221]"
+                  description="Connection manager used to access lookup data."
+                  name="OleDbConnection" />
+              </connections>
+              <inputs>
+                <input
+                  refId="Package\Data Flow Task\Lookup.Inputs[Lookup Input]"
+                  name="Lookup Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\Data Flow Task\Lookup.Inputs[Lookup Input].Columns[ProductKey]"
+                      cachedDataType="i4"
+                      cachedName="ProductKey"
+                      lineageId="Package\Data Flow Task\FACT_PRODUCT_INVENTORY_ORIGEN.Outputs[ADO NET Source Output].Columns[ProductKey]">
+                      <properties>
+                        <property
+                          dataType="System.String"
+                          description="Specifies the column in the reference table that a column joins."
+                          name="JoinToReferenceColumn">ProductKey</property>
+                        <property
+                          dataType="System.Null"
+                          description="Specifies the column in the reference table from which a column is copied."
+                          name="CopyFromReferenceColumn" />
+                      </properties>
+                    </inputColumn>
+                  </inputColumns>
+                  <externalMetadataColumns />
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\Data Flow Task\Lookup.Outputs[Lookup Match Output]"
+                  errorOrTruncationOperation="Lookup"
+                  errorRowDisposition="FailComponent"
+                  exclusionGroup="1"
+                  name="Lookup Match Output"
+                  synchronousInputId="Package\Data Flow Task\Lookup.Inputs[Lookup Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Data Flow Task\Lookup.Outputs[Lookup Match Output].Columns[Weight]"
+                      dataType="r8"
+                      errorOrTruncationOperation="Copy Column"
+                      lineageId="Package\Data Flow Task\Lookup.Outputs[Lookup Match Output].Columns[Weight]"
+                      name="Weight"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          dataType="System.String"
+                          description="Specifies the column in the reference table from which a column is copied."
+                          name="CopyFromReferenceColumn">Weight</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\Data Flow Task\Lookup.Outputs[Lookup Match Output].Columns[Size]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Copy Column"
+                      length="50"
+                      lineageId="Package\Data Flow Task\Lookup.Outputs[Lookup Match Output].Columns[Size]"
+                      name="Size"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          dataType="System.String"
+                          description="Specifies the column in the reference table from which a column is copied."
+                          name="CopyFromReferenceColumn">Size</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\Data Flow Task\Lookup.Outputs[Lookup Match Output].Columns[StandardCost]"
+                      dataType="cy"
+                      errorOrTruncationOperation="Copy Column"
+                      lineageId="Package\Data Flow Task\Lookup.Outputs[Lookup Match Output].Columns[StandardCost]"
+                      name="StandardCost"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          dataType="System.String"
+                          description="Specifies the column in the reference table from which a column is copied."
+                          name="CopyFromReferenceColumn">StandardCost</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\Data Flow Task\Lookup.Outputs[Lookup Match Output].Columns[ListPrice]"
+                      dataType="cy"
+                      errorOrTruncationOperation="Copy Column"
+                      lineageId="Package\Data Flow Task\Lookup.Outputs[Lookup Match Output].Columns[ListPrice]"
+                      name="ListPrice"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          dataType="System.String"
+                          description="Specifies the column in the reference table from which a column is copied."
+                          name="CopyFromReferenceColumn">ListPrice</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\Data Flow Task\Lookup.Outputs[Lookup Match Output].Columns[DealerPrice]"
+                      dataType="cy"
+                      errorOrTruncationOperation="Copy Column"
+                      lineageId="Package\Data Flow Task\Lookup.Outputs[Lookup Match Output].Columns[DealerPrice]"
+                      name="DealerPrice"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          dataType="System.String"
+                          description="Specifies the column in the reference table from which a column is copied."
+                          name="CopyFromReferenceColumn">DealerPrice</property>
+                      </properties>
+                    </outputColumn>
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\Data Flow Task\Lookup.Outputs[Lookup No Match Output]"
+                  description="The Lookup output that handles rows with no matching entries in the reference dataset. Use this output when the NoMatchBehavior property is set to &quot;Send rows with no matching entries to the no match output.&quot;"
+                  exclusionGroup="1"
+                  name="Lookup No Match Output"
+                  synchronousInputId="Package\Data Flow Task\Lookup.Inputs[Lookup Input]">
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\Data Flow Task\Lookup.Outputs[Lookup Error Output]"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="Lookup Error Output"
+                  synchronousInputId="Package\Data Flow Task\Lookup.Inputs[Lookup Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Data Flow Task\Lookup.Outputs[Lookup Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Data Flow Task\Lookup.Outputs[Lookup Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Data Flow Task\Lookup.Outputs[Lookup Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Data Flow Task\Lookup.Outputs[Lookup Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+          </components>
+          <paths>
+            <path
+              refId="Package\Data Flow Task.Paths[ADO NET Source Output]"
+              endId="Package\Data Flow Task\Lookup.Inputs[Lookup Input]"
+              name="ADO NET Source Output"
+              startId="Package\Data Flow Task\FACT_PRODUCT_INVENTORY_ORIGEN.Outputs[ADO NET Source Output]" />
+            <path
+              refId="Package\Data Flow Task.Paths[Derived Column Output]"
+              endId="Package\Data Flow Task\FACT_PRODUCT_INVENTORY_ETL.Inputs[ADO NET Destination Input]"
+              name="Derived Column Output"
+              startId="Package\Data Flow Task\COLUMNAS DERIVADAS.Outputs[Derived Column Output]" />
+            <path
+              refId="Package\Data Flow Task.Paths[Lookup Match Output]"
+              endId="Package\Data Flow Task\COLUMNAS DERIVADAS.Inputs[Derived Column Input]"
+              name="Lookup Match Output"
+              startId="Package\Data Flow Task\Lookup.Outputs[Lookup Match Output]" />
+          </paths>
+        </pipeline>
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\ETL EVALUACION FINAL ADVENTURE WORKS"
+      DTS:CreationName="Microsoft.Pipeline"
+      DTS:Description="Data Flow Task"
+      DTS:DTSID="{F81E5E4E-37EB-49BA-8A3C-BBBF3C41BA16}"
+      DTS:ExecutableType="Microsoft.Pipeline"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="ETL EVALUACION FINAL ADVENTURE WORKS"
+      DTS:TaskContact="Performs high-performance data extraction, transformation and loading;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <pipeline
+          version="1">
+          <components>
             <component
               refId="Package\ETL EVALUACION FINAL ADVENTURE WORKS\DIM DATE ORIGEN"
               componentClassID="Microsoft.ManagedComponentHost"
@@ -752,142 +1339,6 @@
               </outputs>
             </component>
             <component
-              refId="Package\ETL EVALUACION FINAL ADVENTURE WORKS\DIM PRODUCT CATEGORY ETL"
-              componentClassID="Microsoft.ManagedComponentHost"
-              contactInfo="Loads data into an ADO.NET-compliant database that uses a database table or view. Load data into a new or existing table. For example, use an ADO.NET provider for ODBC to load data into an ODBC destination.;Microsoft Corporation; Microsoft SQL Server; © Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;2"
-              description="Loads data into an ADO.NET-compliant database that uses a database table or view. Load data into a new or existing table. For example, use an ADO.NET provider for ODBC to load data into an ODBC destination."
-              name="DIM PRODUCT CATEGORY ETL"
-              usesDispositions="true"
-              version="2">
-              <properties>
-                <property
-                  dataType="System.String"
-                  description="The Destination database table name."
-                  expressionType="Notify"
-                  name="TableOrViewName"
-                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor">"DIM_PRODUCT_CATEGORY_ETL"</property>
-                <property
-                  dataType="System.Int32"
-                  description="Specify the number of rows per batch. The default is 0 which uses the same size as SSIS internal buffer. "
-                  expressionType="Notify"
-                  name="BatchSize">0</property>
-                <property
-                  dataType="System.Int32"
-                  description="The number of seconds before a command times out. A value of 0 indicates infinite time-out. "
-                  expressionType="Notify"
-                  name="CommandTimeout">30</property>
-                <property
-                  dataType="System.Boolean"
-                  description="Specifies whether to use the SqlBulkCopy interface to improve the performance of bulk insert operations. Only certain providers support this interface."
-                  expressionType="Notify"
-                  name="UseBulkInsertWhenPossible">true</property>
-                <property
-                  dataType="System.String"
-                  name="UserComponentTypeName">Microsoft.ADONETDestination</property>
-              </properties>
-              <connections>
-                <connection
-                  refId="Package\ETL EVALUACION FINAL ADVENTURE WORKS\DIM PRODUCT CATEGORY ETL.Connections[IDbConnection]"
-                  connectionManagerID="{240C875F-1B1B-43F4-89A8-E281EE8FDF52}:external"
-                  connectionManagerRefId="Project.ConnectionManagers[localhost.ETL_AdventureWorksDW2022]"
-                  description="Managed connection manager"
-                  name="IDbConnection" />
-              </connections>
-              <inputs>
-                <input
-                  refId="Package\ETL EVALUACION FINAL ADVENTURE WORKS\DIM PRODUCT CATEGORY ETL.Inputs[ADO NET Destination Input]"
-                  errorRowDisposition="FailComponent"
-                  hasSideEffects="true"
-                  name="ADO NET Destination Input">
-                  <inputColumns>
-                    <inputColumn
-                      refId="Package\ETL EVALUACION FINAL ADVENTURE WORKS\DIM PRODUCT CATEGORY ETL.Inputs[ADO NET Destination Input].Columns[ProductCategoryKey]"
-                      cachedDataType="i4"
-                      cachedName="ProductCategoryKey"
-                      externalMetadataColumnId="Package\ETL EVALUACION FINAL ADVENTURE WORKS\DIM PRODUCT CATEGORY ETL.Inputs[ADO NET Destination Input].ExternalColumns[ProductCategoryKey]"
-                      lineageId="Package\ETL EVALUACION FINAL ADVENTURE WORKS\DIM PRODUCT CATEGORY ORIGEN.Outputs[ADO NET Source Output].Columns[ProductCategoryKey]" />
-                    <inputColumn
-                      refId="Package\ETL EVALUACION FINAL ADVENTURE WORKS\DIM PRODUCT CATEGORY ETL.Inputs[ADO NET Destination Input].Columns[ProductCategoryAlternateKey]"
-                      cachedDataType="i4"
-                      cachedName="ProductCategoryAlternateKey"
-                      externalMetadataColumnId="Package\ETL EVALUACION FINAL ADVENTURE WORKS\DIM PRODUCT CATEGORY ETL.Inputs[ADO NET Destination Input].ExternalColumns[ProductCategoryAlternateKey]"
-                      lineageId="Package\ETL EVALUACION FINAL ADVENTURE WORKS\DIM PRODUCT CATEGORY ORIGEN.Outputs[ADO NET Source Output].Columns[ProductCategoryAlternateKey]" />
-                    <inputColumn
-                      refId="Package\ETL EVALUACION FINAL ADVENTURE WORKS\DIM PRODUCT CATEGORY ETL.Inputs[ADO NET Destination Input].Columns[EnglishProductCategoryName]"
-                      cachedDataType="wstr"
-                      cachedLength="50"
-                      cachedName="EnglishProductCategoryName"
-                      externalMetadataColumnId="Package\ETL EVALUACION FINAL ADVENTURE WORKS\DIM PRODUCT CATEGORY ETL.Inputs[ADO NET Destination Input].ExternalColumns[EnglishProductCategoryName]"
-                      lineageId="Package\ETL EVALUACION FINAL ADVENTURE WORKS\DIM PRODUCT CATEGORY ORIGEN.Outputs[ADO NET Source Output].Columns[EnglishProductCategoryName]" />
-                    <inputColumn
-                      refId="Package\ETL EVALUACION FINAL ADVENTURE WORKS\DIM PRODUCT CATEGORY ETL.Inputs[ADO NET Destination Input].Columns[SpanishProductCategoryName]"
-                      cachedDataType="wstr"
-                      cachedLength="50"
-                      cachedName="SpanishProductCategoryName"
-                      externalMetadataColumnId="Package\ETL EVALUACION FINAL ADVENTURE WORKS\DIM PRODUCT CATEGORY ETL.Inputs[ADO NET Destination Input].ExternalColumns[SpanishProductCategoryName]"
-                      lineageId="Package\ETL EVALUACION FINAL ADVENTURE WORKS\DIM PRODUCT CATEGORY ORIGEN.Outputs[ADO NET Source Output].Columns[SpanishProductCategoryName]" />
-                    <inputColumn
-                      refId="Package\ETL EVALUACION FINAL ADVENTURE WORKS\DIM PRODUCT CATEGORY ETL.Inputs[ADO NET Destination Input].Columns[FrenchProductCategoryName]"
-                      cachedDataType="wstr"
-                      cachedLength="50"
-                      cachedName="FrenchProductCategoryName"
-                      externalMetadataColumnId="Package\ETL EVALUACION FINAL ADVENTURE WORKS\DIM PRODUCT CATEGORY ETL.Inputs[ADO NET Destination Input].ExternalColumns[FrenchProductCategoryName]"
-                      lineageId="Package\ETL EVALUACION FINAL ADVENTURE WORKS\DIM PRODUCT CATEGORY ORIGEN.Outputs[ADO NET Source Output].Columns[FrenchProductCategoryName]" />
-                  </inputColumns>
-                  <externalMetadataColumns
-                    isUsed="True">
-                    <externalMetadataColumn
-                      refId="Package\ETL EVALUACION FINAL ADVENTURE WORKS\DIM PRODUCT CATEGORY ETL.Inputs[ADO NET Destination Input].ExternalColumns[ProductCategoryKey]"
-                      dataType="i4"
-                      name="ProductCategoryKey" />
-                    <externalMetadataColumn
-                      refId="Package\ETL EVALUACION FINAL ADVENTURE WORKS\DIM PRODUCT CATEGORY ETL.Inputs[ADO NET Destination Input].ExternalColumns[ProductCategoryAlternateKey]"
-                      dataType="i4"
-                      name="ProductCategoryAlternateKey" />
-                    <externalMetadataColumn
-                      refId="Package\ETL EVALUACION FINAL ADVENTURE WORKS\DIM PRODUCT CATEGORY ETL.Inputs[ADO NET Destination Input].ExternalColumns[EnglishProductCategoryName]"
-                      dataType="wstr"
-                      length="50"
-                      name="EnglishProductCategoryName" />
-                    <externalMetadataColumn
-                      refId="Package\ETL EVALUACION FINAL ADVENTURE WORKS\DIM PRODUCT CATEGORY ETL.Inputs[ADO NET Destination Input].ExternalColumns[SpanishProductCategoryName]"
-                      dataType="wstr"
-                      length="50"
-                      name="SpanishProductCategoryName" />
-                    <externalMetadataColumn
-                      refId="Package\ETL EVALUACION FINAL ADVENTURE WORKS\DIM PRODUCT CATEGORY ETL.Inputs[ADO NET Destination Input].ExternalColumns[FrenchProductCategoryName]"
-                      dataType="wstr"
-                      length="50"
-                      name="FrenchProductCategoryName" />
-                  </externalMetadataColumns>
-                </input>
-              </inputs>
-              <outputs>
-                <output
-                  refId="Package\ETL EVALUACION FINAL ADVENTURE WORKS\DIM PRODUCT CATEGORY ETL.Outputs[ADO NET Destination Error Output]"
-                  exclusionGroup="1"
-                  isErrorOut="true"
-                  name="ADO NET Destination Error Output"
-                  synchronousInputId="Package\ETL EVALUACION FINAL ADVENTURE WORKS\DIM PRODUCT CATEGORY ETL.Inputs[ADO NET Destination Input]">
-                  <outputColumns>
-                    <outputColumn
-                      refId="Package\ETL EVALUACION FINAL ADVENTURE WORKS\DIM PRODUCT CATEGORY ETL.Outputs[ADO NET Destination Error Output].Columns[ErrorCode]"
-                      dataType="i4"
-                      lineageId="Package\ETL EVALUACION FINAL ADVENTURE WORKS\DIM PRODUCT CATEGORY ETL.Outputs[ADO NET Destination Error Output].Columns[ErrorCode]"
-                      name="ErrorCode"
-                      specialFlags="1" />
-                    <outputColumn
-                      refId="Package\ETL EVALUACION FINAL ADVENTURE WORKS\DIM PRODUCT CATEGORY ETL.Outputs[ADO NET Destination Error Output].Columns[ErrorColumn]"
-                      dataType="i4"
-                      lineageId="Package\ETL EVALUACION FINAL ADVENTURE WORKS\DIM PRODUCT CATEGORY ETL.Outputs[ADO NET Destination Error Output].Columns[ErrorColumn]"
-                      name="ErrorColumn"
-                      specialFlags="2" />
-                  </outputColumns>
-                  <externalMetadataColumns />
-                </output>
-              </outputs>
-            </component>
-            <component
               refId="Package\ETL EVALUACION FINAL ADVENTURE WORKS\DIM PRODUCT CATEGORY ORIGEN"
               componentClassID="Microsoft.ManagedComponentHost"
               contactInfo="Consumes data from SQL Server, OLE DB, ODBC, or Oracle, using the corresponding .NET Framework data provider. Use a Transact-SQL statement to define the result set. For example, extract data from SQL Server with the .NET Framework data provider for SQL Server.;Microsoft Corporation; Microsoft SQL Server; © Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;4"
@@ -1057,6 +1508,424 @@
                       refId="Package\ETL EVALUACION FINAL ADVENTURE WORKS\DIM PRODUCT CATEGORY ORIGEN.Outputs[ADO NET Source Error Output].Columns[ErrorColumn]"
                       dataType="i4"
                       lineageId="Package\ETL EVALUACION FINAL ADVENTURE WORKS\DIM PRODUCT CATEGORY ORIGEN.Outputs[ADO NET Source Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\ETL EVALUACION FINAL ADVENTURE WORKS\DIM_DATE_ETL"
+              componentClassID="Microsoft.ManagedComponentHost"
+              contactInfo="Loads data into an ADO.NET-compliant database that uses a database table or view. Load data into a new or existing table. For example, use an ADO.NET provider for ODBC to load data into an ODBC destination.;Microsoft Corporation; Microsoft SQL Server; © Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;2"
+              description="Loads data into an ADO.NET-compliant database that uses a database table or view. Load data into a new or existing table. For example, use an ADO.NET provider for ODBC to load data into an ODBC destination."
+              name="DIM_DATE_ETL"
+              usesDispositions="true"
+              version="2">
+              <properties>
+                <property
+                  dataType="System.String"
+                  description="The Destination database table name."
+                  expressionType="Notify"
+                  name="TableOrViewName"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor">"DIM_DATE_ETL"</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specify the number of rows per batch. The default is 0 which uses the same size as SSIS internal buffer. "
+                  expressionType="Notify"
+                  name="BatchSize">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="The number of seconds before a command times out. A value of 0 indicates infinite time-out. "
+                  expressionType="Notify"
+                  name="CommandTimeout">30</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Specifies whether to use the SqlBulkCopy interface to improve the performance of bulk insert operations. Only certain providers support this interface."
+                  expressionType="Notify"
+                  name="UseBulkInsertWhenPossible">true</property>
+                <property
+                  dataType="System.String"
+                  name="UserComponentTypeName">Microsoft.ADONETDestination</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\ETL EVALUACION FINAL ADVENTURE WORKS\DIM_DATE_ETL.Connections[IDbConnection]"
+                  connectionManagerID="{240C875F-1B1B-43F4-89A8-E281EE8FDF52}:external"
+                  connectionManagerRefId="Project.ConnectionManagers[localhost.ETL_AdventureWorksDW2022]"
+                  description="Managed connection manager"
+                  name="IDbConnection" />
+              </connections>
+              <inputs>
+                <input
+                  refId="Package\ETL EVALUACION FINAL ADVENTURE WORKS\DIM_DATE_ETL.Inputs[ADO NET Destination Input]"
+                  errorRowDisposition="FailComponent"
+                  hasSideEffects="true"
+                  name="ADO NET Destination Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\ETL EVALUACION FINAL ADVENTURE WORKS\DIM_DATE_ETL.Inputs[ADO NET Destination Input].Columns[DateKey]"
+                      cachedDataType="i4"
+                      cachedName="DateKey"
+                      externalMetadataColumnId="Package\ETL EVALUACION FINAL ADVENTURE WORKS\DIM_DATE_ETL.Inputs[ADO NET Destination Input].ExternalColumns[DateKey]"
+                      lineageId="Package\ETL EVALUACION FINAL ADVENTURE WORKS\DIM DATE ORIGEN.Outputs[ADO NET Source Output].Columns[DateKey]" />
+                    <inputColumn
+                      refId="Package\ETL EVALUACION FINAL ADVENTURE WORKS\DIM_DATE_ETL.Inputs[ADO NET Destination Input].Columns[FullDateAlternateKey]"
+                      cachedDataType="dbDate"
+                      cachedName="FullDateAlternateKey"
+                      externalMetadataColumnId="Package\ETL EVALUACION FINAL ADVENTURE WORKS\DIM_DATE_ETL.Inputs[ADO NET Destination Input].ExternalColumns[FullDateAlternateKey]"
+                      lineageId="Package\ETL EVALUACION FINAL ADVENTURE WORKS\DIM DATE ORIGEN.Outputs[ADO NET Source Output].Columns[FullDateAlternateKey]" />
+                    <inputColumn
+                      refId="Package\ETL EVALUACION FINAL ADVENTURE WORKS\DIM_DATE_ETL.Inputs[ADO NET Destination Input].Columns[DayNumberOfWeek]"
+                      cachedDataType="ui1"
+                      cachedName="DayNumberOfWeek"
+                      externalMetadataColumnId="Package\ETL EVALUACION FINAL ADVENTURE WORKS\DIM_DATE_ETL.Inputs[ADO NET Destination Input].ExternalColumns[DayNumberOfWeek]"
+                      lineageId="Package\ETL EVALUACION FINAL ADVENTURE WORKS\DIM DATE ORIGEN.Outputs[ADO NET Source Output].Columns[DayNumberOfWeek]" />
+                    <inputColumn
+                      refId="Package\ETL EVALUACION FINAL ADVENTURE WORKS\DIM_DATE_ETL.Inputs[ADO NET Destination Input].Columns[EnglishDayNameOfWeek]"
+                      cachedDataType="wstr"
+                      cachedLength="10"
+                      cachedName="EnglishDayNameOfWeek"
+                      externalMetadataColumnId="Package\ETL EVALUACION FINAL ADVENTURE WORKS\DIM_DATE_ETL.Inputs[ADO NET Destination Input].ExternalColumns[EnglishDayNameOfWeek]"
+                      lineageId="Package\ETL EVALUACION FINAL ADVENTURE WORKS\DIM DATE ORIGEN.Outputs[ADO NET Source Output].Columns[EnglishDayNameOfWeek]" />
+                    <inputColumn
+                      refId="Package\ETL EVALUACION FINAL ADVENTURE WORKS\DIM_DATE_ETL.Inputs[ADO NET Destination Input].Columns[SpanishDayNameOfWeek]"
+                      cachedDataType="wstr"
+                      cachedLength="10"
+                      cachedName="SpanishDayNameOfWeek"
+                      externalMetadataColumnId="Package\ETL EVALUACION FINAL ADVENTURE WORKS\DIM_DATE_ETL.Inputs[ADO NET Destination Input].ExternalColumns[SpanishDayNameOfWeek]"
+                      lineageId="Package\ETL EVALUACION FINAL ADVENTURE WORKS\DIM DATE ORIGEN.Outputs[ADO NET Source Output].Columns[SpanishDayNameOfWeek]" />
+                    <inputColumn
+                      refId="Package\ETL EVALUACION FINAL ADVENTURE WORKS\DIM_DATE_ETL.Inputs[ADO NET Destination Input].Columns[FrenchDayNameOfWeek]"
+                      cachedDataType="wstr"
+                      cachedLength="10"
+                      cachedName="FrenchDayNameOfWeek"
+                      externalMetadataColumnId="Package\ETL EVALUACION FINAL ADVENTURE WORKS\DIM_DATE_ETL.Inputs[ADO NET Destination Input].ExternalColumns[FrenchDayNameOfWeek]"
+                      lineageId="Package\ETL EVALUACION FINAL ADVENTURE WORKS\DIM DATE ORIGEN.Outputs[ADO NET Source Output].Columns[FrenchDayNameOfWeek]" />
+                    <inputColumn
+                      refId="Package\ETL EVALUACION FINAL ADVENTURE WORKS\DIM_DATE_ETL.Inputs[ADO NET Destination Input].Columns[DayNumberOfMonth]"
+                      cachedDataType="ui1"
+                      cachedName="DayNumberOfMonth"
+                      externalMetadataColumnId="Package\ETL EVALUACION FINAL ADVENTURE WORKS\DIM_DATE_ETL.Inputs[ADO NET Destination Input].ExternalColumns[DayNumberOfMonth]"
+                      lineageId="Package\ETL EVALUACION FINAL ADVENTURE WORKS\DIM DATE ORIGEN.Outputs[ADO NET Source Output].Columns[DayNumberOfMonth]" />
+                    <inputColumn
+                      refId="Package\ETL EVALUACION FINAL ADVENTURE WORKS\DIM_DATE_ETL.Inputs[ADO NET Destination Input].Columns[DayNumberOfYear]"
+                      cachedDataType="i2"
+                      cachedName="DayNumberOfYear"
+                      externalMetadataColumnId="Package\ETL EVALUACION FINAL ADVENTURE WORKS\DIM_DATE_ETL.Inputs[ADO NET Destination Input].ExternalColumns[DayNumberOfYear]"
+                      lineageId="Package\ETL EVALUACION FINAL ADVENTURE WORKS\DIM DATE ORIGEN.Outputs[ADO NET Source Output].Columns[DayNumberOfYear]" />
+                    <inputColumn
+                      refId="Package\ETL EVALUACION FINAL ADVENTURE WORKS\DIM_DATE_ETL.Inputs[ADO NET Destination Input].Columns[WeekNumberOfYear]"
+                      cachedDataType="ui1"
+                      cachedName="WeekNumberOfYear"
+                      externalMetadataColumnId="Package\ETL EVALUACION FINAL ADVENTURE WORKS\DIM_DATE_ETL.Inputs[ADO NET Destination Input].ExternalColumns[WeekNumberOfYear]"
+                      lineageId="Package\ETL EVALUACION FINAL ADVENTURE WORKS\DIM DATE ORIGEN.Outputs[ADO NET Source Output].Columns[WeekNumberOfYear]" />
+                    <inputColumn
+                      refId="Package\ETL EVALUACION FINAL ADVENTURE WORKS\DIM_DATE_ETL.Inputs[ADO NET Destination Input].Columns[EnglishMonthName]"
+                      cachedDataType="wstr"
+                      cachedLength="10"
+                      cachedName="EnglishMonthName"
+                      externalMetadataColumnId="Package\ETL EVALUACION FINAL ADVENTURE WORKS\DIM_DATE_ETL.Inputs[ADO NET Destination Input].ExternalColumns[EnglishMonthName]"
+                      lineageId="Package\ETL EVALUACION FINAL ADVENTURE WORKS\DIM DATE ORIGEN.Outputs[ADO NET Source Output].Columns[EnglishMonthName]" />
+                    <inputColumn
+                      refId="Package\ETL EVALUACION FINAL ADVENTURE WORKS\DIM_DATE_ETL.Inputs[ADO NET Destination Input].Columns[SpanishMonthName]"
+                      cachedDataType="wstr"
+                      cachedLength="10"
+                      cachedName="SpanishMonthName"
+                      externalMetadataColumnId="Package\ETL EVALUACION FINAL ADVENTURE WORKS\DIM_DATE_ETL.Inputs[ADO NET Destination Input].ExternalColumns[SpanishMonthName]"
+                      lineageId="Package\ETL EVALUACION FINAL ADVENTURE WORKS\DIM DATE ORIGEN.Outputs[ADO NET Source Output].Columns[SpanishMonthName]" />
+                    <inputColumn
+                      refId="Package\ETL EVALUACION FINAL ADVENTURE WORKS\DIM_DATE_ETL.Inputs[ADO NET Destination Input].Columns[FrenchMonthName]"
+                      cachedDataType="wstr"
+                      cachedLength="10"
+                      cachedName="FrenchMonthName"
+                      externalMetadataColumnId="Package\ETL EVALUACION FINAL ADVENTURE WORKS\DIM_DATE_ETL.Inputs[ADO NET Destination Input].ExternalColumns[FrenchMonthName]"
+                      lineageId="Package\ETL EVALUACION FINAL ADVENTURE WORKS\DIM DATE ORIGEN.Outputs[ADO NET Source Output].Columns[FrenchMonthName]" />
+                    <inputColumn
+                      refId="Package\ETL EVALUACION FINAL ADVENTURE WORKS\DIM_DATE_ETL.Inputs[ADO NET Destination Input].Columns[MonthNumberOfYear]"
+                      cachedDataType="ui1"
+                      cachedName="MonthNumberOfYear"
+                      externalMetadataColumnId="Package\ETL EVALUACION FINAL ADVENTURE WORKS\DIM_DATE_ETL.Inputs[ADO NET Destination Input].ExternalColumns[MonthNumberOfYear]"
+                      lineageId="Package\ETL EVALUACION FINAL ADVENTURE WORKS\DIM DATE ORIGEN.Outputs[ADO NET Source Output].Columns[MonthNumberOfYear]" />
+                    <inputColumn
+                      refId="Package\ETL EVALUACION FINAL ADVENTURE WORKS\DIM_DATE_ETL.Inputs[ADO NET Destination Input].Columns[CalendarQuarter]"
+                      cachedDataType="ui1"
+                      cachedName="CalendarQuarter"
+                      externalMetadataColumnId="Package\ETL EVALUACION FINAL ADVENTURE WORKS\DIM_DATE_ETL.Inputs[ADO NET Destination Input].ExternalColumns[CalendarQuarter]"
+                      lineageId="Package\ETL EVALUACION FINAL ADVENTURE WORKS\DIM DATE ORIGEN.Outputs[ADO NET Source Output].Columns[CalendarQuarter]" />
+                    <inputColumn
+                      refId="Package\ETL EVALUACION FINAL ADVENTURE WORKS\DIM_DATE_ETL.Inputs[ADO NET Destination Input].Columns[CalendarYear]"
+                      cachedDataType="i2"
+                      cachedName="CalendarYear"
+                      externalMetadataColumnId="Package\ETL EVALUACION FINAL ADVENTURE WORKS\DIM_DATE_ETL.Inputs[ADO NET Destination Input].ExternalColumns[CalendarYear]"
+                      lineageId="Package\ETL EVALUACION FINAL ADVENTURE WORKS\DIM DATE ORIGEN.Outputs[ADO NET Source Output].Columns[CalendarYear]" />
+                    <inputColumn
+                      refId="Package\ETL EVALUACION FINAL ADVENTURE WORKS\DIM_DATE_ETL.Inputs[ADO NET Destination Input].Columns[CalendarSemester]"
+                      cachedDataType="ui1"
+                      cachedName="CalendarSemester"
+                      externalMetadataColumnId="Package\ETL EVALUACION FINAL ADVENTURE WORKS\DIM_DATE_ETL.Inputs[ADO NET Destination Input].ExternalColumns[CalendarSemester]"
+                      lineageId="Package\ETL EVALUACION FINAL ADVENTURE WORKS\DIM DATE ORIGEN.Outputs[ADO NET Source Output].Columns[CalendarSemester]" />
+                    <inputColumn
+                      refId="Package\ETL EVALUACION FINAL ADVENTURE WORKS\DIM_DATE_ETL.Inputs[ADO NET Destination Input].Columns[FiscalQuarter]"
+                      cachedDataType="ui1"
+                      cachedName="FiscalQuarter"
+                      externalMetadataColumnId="Package\ETL EVALUACION FINAL ADVENTURE WORKS\DIM_DATE_ETL.Inputs[ADO NET Destination Input].ExternalColumns[FiscalQuarter]"
+                      lineageId="Package\ETL EVALUACION FINAL ADVENTURE WORKS\DIM DATE ORIGEN.Outputs[ADO NET Source Output].Columns[FiscalQuarter]" />
+                    <inputColumn
+                      refId="Package\ETL EVALUACION FINAL ADVENTURE WORKS\DIM_DATE_ETL.Inputs[ADO NET Destination Input].Columns[FiscalYear]"
+                      cachedDataType="i2"
+                      cachedName="FiscalYear"
+                      externalMetadataColumnId="Package\ETL EVALUACION FINAL ADVENTURE WORKS\DIM_DATE_ETL.Inputs[ADO NET Destination Input].ExternalColumns[FiscalYear]"
+                      lineageId="Package\ETL EVALUACION FINAL ADVENTURE WORKS\DIM DATE ORIGEN.Outputs[ADO NET Source Output].Columns[FiscalYear]" />
+                    <inputColumn
+                      refId="Package\ETL EVALUACION FINAL ADVENTURE WORKS\DIM_DATE_ETL.Inputs[ADO NET Destination Input].Columns[FiscalSemester]"
+                      cachedDataType="ui1"
+                      cachedName="FiscalSemester"
+                      externalMetadataColumnId="Package\ETL EVALUACION FINAL ADVENTURE WORKS\DIM_DATE_ETL.Inputs[ADO NET Destination Input].ExternalColumns[FiscalSemester]"
+                      lineageId="Package\ETL EVALUACION FINAL ADVENTURE WORKS\DIM DATE ORIGEN.Outputs[ADO NET Source Output].Columns[FiscalSemester]" />
+                  </inputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\ETL EVALUACION FINAL ADVENTURE WORKS\DIM_DATE_ETL.Inputs[ADO NET Destination Input].ExternalColumns[DateKey]"
+                      dataType="i4"
+                      name="DateKey" />
+                    <externalMetadataColumn
+                      refId="Package\ETL EVALUACION FINAL ADVENTURE WORKS\DIM_DATE_ETL.Inputs[ADO NET Destination Input].ExternalColumns[FullDateAlternateKey]"
+                      dataType="dbTimeStamp"
+                      name="FullDateAlternateKey" />
+                    <externalMetadataColumn
+                      refId="Package\ETL EVALUACION FINAL ADVENTURE WORKS\DIM_DATE_ETL.Inputs[ADO NET Destination Input].ExternalColumns[DayNumberOfWeek]"
+                      dataType="ui1"
+                      name="DayNumberOfWeek" />
+                    <externalMetadataColumn
+                      refId="Package\ETL EVALUACION FINAL ADVENTURE WORKS\DIM_DATE_ETL.Inputs[ADO NET Destination Input].ExternalColumns[EnglishDayNameOfWeek]"
+                      dataType="wstr"
+                      length="10"
+                      name="EnglishDayNameOfWeek" />
+                    <externalMetadataColumn
+                      refId="Package\ETL EVALUACION FINAL ADVENTURE WORKS\DIM_DATE_ETL.Inputs[ADO NET Destination Input].ExternalColumns[SpanishDayNameOfWeek]"
+                      dataType="wstr"
+                      length="10"
+                      name="SpanishDayNameOfWeek" />
+                    <externalMetadataColumn
+                      refId="Package\ETL EVALUACION FINAL ADVENTURE WORKS\DIM_DATE_ETL.Inputs[ADO NET Destination Input].ExternalColumns[FrenchDayNameOfWeek]"
+                      dataType="wstr"
+                      length="10"
+                      name="FrenchDayNameOfWeek" />
+                    <externalMetadataColumn
+                      refId="Package\ETL EVALUACION FINAL ADVENTURE WORKS\DIM_DATE_ETL.Inputs[ADO NET Destination Input].ExternalColumns[DayNumberOfMonth]"
+                      dataType="ui1"
+                      name="DayNumberOfMonth" />
+                    <externalMetadataColumn
+                      refId="Package\ETL EVALUACION FINAL ADVENTURE WORKS\DIM_DATE_ETL.Inputs[ADO NET Destination Input].ExternalColumns[DayNumberOfYear]"
+                      dataType="i2"
+                      name="DayNumberOfYear" />
+                    <externalMetadataColumn
+                      refId="Package\ETL EVALUACION FINAL ADVENTURE WORKS\DIM_DATE_ETL.Inputs[ADO NET Destination Input].ExternalColumns[WeekNumberOfYear]"
+                      dataType="ui1"
+                      name="WeekNumberOfYear" />
+                    <externalMetadataColumn
+                      refId="Package\ETL EVALUACION FINAL ADVENTURE WORKS\DIM_DATE_ETL.Inputs[ADO NET Destination Input].ExternalColumns[EnglishMonthName]"
+                      dataType="wstr"
+                      length="10"
+                      name="EnglishMonthName" />
+                    <externalMetadataColumn
+                      refId="Package\ETL EVALUACION FINAL ADVENTURE WORKS\DIM_DATE_ETL.Inputs[ADO NET Destination Input].ExternalColumns[SpanishMonthName]"
+                      dataType="wstr"
+                      length="10"
+                      name="SpanishMonthName" />
+                    <externalMetadataColumn
+                      refId="Package\ETL EVALUACION FINAL ADVENTURE WORKS\DIM_DATE_ETL.Inputs[ADO NET Destination Input].ExternalColumns[FrenchMonthName]"
+                      dataType="wstr"
+                      length="10"
+                      name="FrenchMonthName" />
+                    <externalMetadataColumn
+                      refId="Package\ETL EVALUACION FINAL ADVENTURE WORKS\DIM_DATE_ETL.Inputs[ADO NET Destination Input].ExternalColumns[MonthNumberOfYear]"
+                      dataType="ui1"
+                      name="MonthNumberOfYear" />
+                    <externalMetadataColumn
+                      refId="Package\ETL EVALUACION FINAL ADVENTURE WORKS\DIM_DATE_ETL.Inputs[ADO NET Destination Input].ExternalColumns[CalendarQuarter]"
+                      dataType="ui1"
+                      name="CalendarQuarter" />
+                    <externalMetadataColumn
+                      refId="Package\ETL EVALUACION FINAL ADVENTURE WORKS\DIM_DATE_ETL.Inputs[ADO NET Destination Input].ExternalColumns[CalendarYear]"
+                      dataType="i2"
+                      name="CalendarYear" />
+                    <externalMetadataColumn
+                      refId="Package\ETL EVALUACION FINAL ADVENTURE WORKS\DIM_DATE_ETL.Inputs[ADO NET Destination Input].ExternalColumns[CalendarSemester]"
+                      dataType="ui1"
+                      name="CalendarSemester" />
+                    <externalMetadataColumn
+                      refId="Package\ETL EVALUACION FINAL ADVENTURE WORKS\DIM_DATE_ETL.Inputs[ADO NET Destination Input].ExternalColumns[FiscalQuarter]"
+                      dataType="ui1"
+                      name="FiscalQuarter" />
+                    <externalMetadataColumn
+                      refId="Package\ETL EVALUACION FINAL ADVENTURE WORKS\DIM_DATE_ETL.Inputs[ADO NET Destination Input].ExternalColumns[FiscalYear]"
+                      dataType="i2"
+                      name="FiscalYear" />
+                    <externalMetadataColumn
+                      refId="Package\ETL EVALUACION FINAL ADVENTURE WORKS\DIM_DATE_ETL.Inputs[ADO NET Destination Input].ExternalColumns[FiscalSemester]"
+                      dataType="ui1"
+                      name="FiscalSemester" />
+                  </externalMetadataColumns>
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\ETL EVALUACION FINAL ADVENTURE WORKS\DIM_DATE_ETL.Outputs[ADO NET Destination Error Output]"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="ADO NET Destination Error Output"
+                  synchronousInputId="Package\ETL EVALUACION FINAL ADVENTURE WORKS\DIM_DATE_ETL.Inputs[ADO NET Destination Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\ETL EVALUACION FINAL ADVENTURE WORKS\DIM_DATE_ETL.Outputs[ADO NET Destination Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\ETL EVALUACION FINAL ADVENTURE WORKS\DIM_DATE_ETL.Outputs[ADO NET Destination Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\ETL EVALUACION FINAL ADVENTURE WORKS\DIM_DATE_ETL.Outputs[ADO NET Destination Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\ETL EVALUACION FINAL ADVENTURE WORKS\DIM_DATE_ETL.Outputs[ADO NET Destination Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\ETL EVALUACION FINAL ADVENTURE WORKS\DIM_PRODUCT_CATEGORY_ETL"
+              componentClassID="Microsoft.ManagedComponentHost"
+              contactInfo="Loads data into an ADO.NET-compliant database that uses a database table or view. Load data into a new or existing table. For example, use an ADO.NET provider for ODBC to load data into an ODBC destination.;Microsoft Corporation; Microsoft SQL Server; © Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;2"
+              description="Loads data into an ADO.NET-compliant database that uses a database table or view. Load data into a new or existing table. For example, use an ADO.NET provider for ODBC to load data into an ODBC destination."
+              name="DIM_PRODUCT_CATEGORY_ETL"
+              usesDispositions="true"
+              version="2">
+              <properties>
+                <property
+                  dataType="System.String"
+                  description="The Destination database table name."
+                  expressionType="Notify"
+                  name="TableOrViewName"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor">"DIM_PRODUCT_CATEGORY_ETL"</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specify the number of rows per batch. The default is 0 which uses the same size as SSIS internal buffer. "
+                  expressionType="Notify"
+                  name="BatchSize">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="The number of seconds before a command times out. A value of 0 indicates infinite time-out. "
+                  expressionType="Notify"
+                  name="CommandTimeout">30</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Specifies whether to use the SqlBulkCopy interface to improve the performance of bulk insert operations. Only certain providers support this interface."
+                  expressionType="Notify"
+                  name="UseBulkInsertWhenPossible">true</property>
+                <property
+                  dataType="System.String"
+                  name="UserComponentTypeName">Microsoft.ADONETDestination</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\ETL EVALUACION FINAL ADVENTURE WORKS\DIM_PRODUCT_CATEGORY_ETL.Connections[IDbConnection]"
+                  connectionManagerID="{240C875F-1B1B-43F4-89A8-E281EE8FDF52}:external"
+                  connectionManagerRefId="Project.ConnectionManagers[localhost.ETL_AdventureWorksDW2022]"
+                  description="Managed connection manager"
+                  name="IDbConnection" />
+              </connections>
+              <inputs>
+                <input
+                  refId="Package\ETL EVALUACION FINAL ADVENTURE WORKS\DIM_PRODUCT_CATEGORY_ETL.Inputs[ADO NET Destination Input]"
+                  errorRowDisposition="FailComponent"
+                  hasSideEffects="true"
+                  name="ADO NET Destination Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\ETL EVALUACION FINAL ADVENTURE WORKS\DIM_PRODUCT_CATEGORY_ETL.Inputs[ADO NET Destination Input].Columns[ProductCategoryKey]"
+                      cachedDataType="i4"
+                      cachedName="ProductCategoryKey"
+                      externalMetadataColumnId="Package\ETL EVALUACION FINAL ADVENTURE WORKS\DIM_PRODUCT_CATEGORY_ETL.Inputs[ADO NET Destination Input].ExternalColumns[ProductCategoryKey]"
+                      lineageId="Package\ETL EVALUACION FINAL ADVENTURE WORKS\DIM PRODUCT CATEGORY ORIGEN.Outputs[ADO NET Source Output].Columns[ProductCategoryKey]" />
+                    <inputColumn
+                      refId="Package\ETL EVALUACION FINAL ADVENTURE WORKS\DIM_PRODUCT_CATEGORY_ETL.Inputs[ADO NET Destination Input].Columns[ProductCategoryAlternateKey]"
+                      cachedDataType="i4"
+                      cachedName="ProductCategoryAlternateKey"
+                      externalMetadataColumnId="Package\ETL EVALUACION FINAL ADVENTURE WORKS\DIM_PRODUCT_CATEGORY_ETL.Inputs[ADO NET Destination Input].ExternalColumns[ProductCategoryAlternateKey]"
+                      lineageId="Package\ETL EVALUACION FINAL ADVENTURE WORKS\DIM PRODUCT CATEGORY ORIGEN.Outputs[ADO NET Source Output].Columns[ProductCategoryAlternateKey]" />
+                    <inputColumn
+                      refId="Package\ETL EVALUACION FINAL ADVENTURE WORKS\DIM_PRODUCT_CATEGORY_ETL.Inputs[ADO NET Destination Input].Columns[EnglishProductCategoryName]"
+                      cachedDataType="wstr"
+                      cachedLength="50"
+                      cachedName="EnglishProductCategoryName"
+                      externalMetadataColumnId="Package\ETL EVALUACION FINAL ADVENTURE WORKS\DIM_PRODUCT_CATEGORY_ETL.Inputs[ADO NET Destination Input].ExternalColumns[EnglishProductCategoryName]"
+                      lineageId="Package\ETL EVALUACION FINAL ADVENTURE WORKS\DIM PRODUCT CATEGORY ORIGEN.Outputs[ADO NET Source Output].Columns[EnglishProductCategoryName]" />
+                    <inputColumn
+                      refId="Package\ETL EVALUACION FINAL ADVENTURE WORKS\DIM_PRODUCT_CATEGORY_ETL.Inputs[ADO NET Destination Input].Columns[SpanishProductCategoryName]"
+                      cachedDataType="wstr"
+                      cachedLength="50"
+                      cachedName="SpanishProductCategoryName"
+                      externalMetadataColumnId="Package\ETL EVALUACION FINAL ADVENTURE WORKS\DIM_PRODUCT_CATEGORY_ETL.Inputs[ADO NET Destination Input].ExternalColumns[SpanishProductCategoryName]"
+                      lineageId="Package\ETL EVALUACION FINAL ADVENTURE WORKS\DIM PRODUCT CATEGORY ORIGEN.Outputs[ADO NET Source Output].Columns[SpanishProductCategoryName]" />
+                    <inputColumn
+                      refId="Package\ETL EVALUACION FINAL ADVENTURE WORKS\DIM_PRODUCT_CATEGORY_ETL.Inputs[ADO NET Destination Input].Columns[FrenchProductCategoryName]"
+                      cachedDataType="wstr"
+                      cachedLength="50"
+                      cachedName="FrenchProductCategoryName"
+                      externalMetadataColumnId="Package\ETL EVALUACION FINAL ADVENTURE WORKS\DIM_PRODUCT_CATEGORY_ETL.Inputs[ADO NET Destination Input].ExternalColumns[FrenchProductCategoryName]"
+                      lineageId="Package\ETL EVALUACION FINAL ADVENTURE WORKS\DIM PRODUCT CATEGORY ORIGEN.Outputs[ADO NET Source Output].Columns[FrenchProductCategoryName]" />
+                  </inputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\ETL EVALUACION FINAL ADVENTURE WORKS\DIM_PRODUCT_CATEGORY_ETL.Inputs[ADO NET Destination Input].ExternalColumns[ProductCategoryKey]"
+                      dataType="i4"
+                      name="ProductCategoryKey" />
+                    <externalMetadataColumn
+                      refId="Package\ETL EVALUACION FINAL ADVENTURE WORKS\DIM_PRODUCT_CATEGORY_ETL.Inputs[ADO NET Destination Input].ExternalColumns[ProductCategoryAlternateKey]"
+                      dataType="i4"
+                      name="ProductCategoryAlternateKey" />
+                    <externalMetadataColumn
+                      refId="Package\ETL EVALUACION FINAL ADVENTURE WORKS\DIM_PRODUCT_CATEGORY_ETL.Inputs[ADO NET Destination Input].ExternalColumns[EnglishProductCategoryName]"
+                      dataType="wstr"
+                      length="50"
+                      name="EnglishProductCategoryName" />
+                    <externalMetadataColumn
+                      refId="Package\ETL EVALUACION FINAL ADVENTURE WORKS\DIM_PRODUCT_CATEGORY_ETL.Inputs[ADO NET Destination Input].ExternalColumns[SpanishProductCategoryName]"
+                      dataType="wstr"
+                      length="50"
+                      name="SpanishProductCategoryName" />
+                    <externalMetadataColumn
+                      refId="Package\ETL EVALUACION FINAL ADVENTURE WORKS\DIM_PRODUCT_CATEGORY_ETL.Inputs[ADO NET Destination Input].ExternalColumns[FrenchProductCategoryName]"
+                      dataType="wstr"
+                      length="50"
+                      name="FrenchProductCategoryName" />
+                  </externalMetadataColumns>
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\ETL EVALUACION FINAL ADVENTURE WORKS\DIM_PRODUCT_CATEGORY_ETL.Outputs[ADO NET Destination Error Output]"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="ADO NET Destination Error Output"
+                  synchronousInputId="Package\ETL EVALUACION FINAL ADVENTURE WORKS\DIM_PRODUCT_CATEGORY_ETL.Inputs[ADO NET Destination Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\ETL EVALUACION FINAL ADVENTURE WORKS\DIM_PRODUCT_CATEGORY_ETL.Outputs[ADO NET Destination Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\ETL EVALUACION FINAL ADVENTURE WORKS\DIM_PRODUCT_CATEGORY_ETL.Outputs[ADO NET Destination Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\ETL EVALUACION FINAL ADVENTURE WORKS\DIM_PRODUCT_CATEGORY_ETL.Outputs[ADO NET Destination Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\ETL EVALUACION FINAL ADVENTURE WORKS\DIM_PRODUCT_CATEGORY_ETL.Outputs[ADO NET Destination Error Output].Columns[ErrorColumn]"
                       name="ErrorColumn"
                       specialFlags="2" />
                   </outputColumns>
@@ -2717,372 +3586,16 @@
                 </output>
               </outputs>
             </component>
-            <component
-              refId="Package\ETL EVALUACION FINAL ADVENTURE WORKS\FACT_PRODUCT_INVENTORY_ETL"
-              componentClassID="Microsoft.ManagedComponentHost"
-              contactInfo="Loads data into an ADO.NET-compliant database that uses a database table or view. Load data into a new or existing table. For example, use an ADO.NET provider for ODBC to load data into an ODBC destination.;Microsoft Corporation; Microsoft SQL Server; © Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;2"
-              description="Loads data into an ADO.NET-compliant database that uses a database table or view. Load data into a new or existing table. For example, use an ADO.NET provider for ODBC to load data into an ODBC destination."
-              name="FACT_PRODUCT_INVENTORY_ETL"
-              usesDispositions="true"
-              version="2">
-              <properties>
-                <property
-                  dataType="System.String"
-                  description="The Destination database table name."
-                  expressionType="Notify"
-                  name="TableOrViewName"
-                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor">"FACT_PRODUCT_INVENTORY_ETL"</property>
-                <property
-                  dataType="System.Int32"
-                  description="Specify the number of rows per batch. The default is 0 which uses the same size as SSIS internal buffer. "
-                  expressionType="Notify"
-                  name="BatchSize">0</property>
-                <property
-                  dataType="System.Int32"
-                  description="The number of seconds before a command times out. A value of 0 indicates infinite time-out. "
-                  expressionType="Notify"
-                  name="CommandTimeout">30</property>
-                <property
-                  dataType="System.Boolean"
-                  description="Specifies whether to use the SqlBulkCopy interface to improve the performance of bulk insert operations. Only certain providers support this interface."
-                  expressionType="Notify"
-                  name="UseBulkInsertWhenPossible">true</property>
-                <property
-                  dataType="System.String"
-                  name="UserComponentTypeName">Microsoft.ADONETDestination</property>
-              </properties>
-              <connections>
-                <connection
-                  refId="Package\ETL EVALUACION FINAL ADVENTURE WORKS\FACT_PRODUCT_INVENTORY_ETL.Connections[IDbConnection]"
-                  connectionManagerID="{240C875F-1B1B-43F4-89A8-E281EE8FDF52}:external"
-                  connectionManagerRefId="Project.ConnectionManagers[localhost.ETL_AdventureWorksDW2022]"
-                  description="Managed connection manager"
-                  name="IDbConnection" />
-              </connections>
-              <inputs>
-                <input
-                  refId="Package\ETL EVALUACION FINAL ADVENTURE WORKS\FACT_PRODUCT_INVENTORY_ETL.Inputs[ADO NET Destination Input]"
-                  errorRowDisposition="FailComponent"
-                  hasSideEffects="true"
-                  name="ADO NET Destination Input">
-                  <inputColumns>
-                    <inputColumn
-                      refId="Package\ETL EVALUACION FINAL ADVENTURE WORKS\FACT_PRODUCT_INVENTORY_ETL.Inputs[ADO NET Destination Input].Columns[ProductKey]"
-                      cachedDataType="i4"
-                      cachedName="ProductKey"
-                      externalMetadataColumnId="Package\ETL EVALUACION FINAL ADVENTURE WORKS\FACT_PRODUCT_INVENTORY_ETL.Inputs[ADO NET Destination Input].ExternalColumns[ProductKey]"
-                      lineageId="Package\ETL EVALUACION FINAL ADVENTURE WORKS\FACT_PRODUCT_INVENTORY_ORIGEN.Outputs[ADO NET Source Output].Columns[ProductKey]" />
-                    <inputColumn
-                      refId="Package\ETL EVALUACION FINAL ADVENTURE WORKS\FACT_PRODUCT_INVENTORY_ETL.Inputs[ADO NET Destination Input].Columns[DateKey]"
-                      cachedDataType="i4"
-                      cachedName="DateKey"
-                      externalMetadataColumnId="Package\ETL EVALUACION FINAL ADVENTURE WORKS\FACT_PRODUCT_INVENTORY_ETL.Inputs[ADO NET Destination Input].ExternalColumns[DateKey]"
-                      lineageId="Package\ETL EVALUACION FINAL ADVENTURE WORKS\FACT_PRODUCT_INVENTORY_ORIGEN.Outputs[ADO NET Source Output].Columns[DateKey]" />
-                    <inputColumn
-                      refId="Package\ETL EVALUACION FINAL ADVENTURE WORKS\FACT_PRODUCT_INVENTORY_ETL.Inputs[ADO NET Destination Input].Columns[MovementDate]"
-                      cachedDataType="dbDate"
-                      cachedName="MovementDate"
-                      externalMetadataColumnId="Package\ETL EVALUACION FINAL ADVENTURE WORKS\FACT_PRODUCT_INVENTORY_ETL.Inputs[ADO NET Destination Input].ExternalColumns[MovementDate]"
-                      lineageId="Package\ETL EVALUACION FINAL ADVENTURE WORKS\FACT_PRODUCT_INVENTORY_ORIGEN.Outputs[ADO NET Source Output].Columns[MovementDate]" />
-                    <inputColumn
-                      refId="Package\ETL EVALUACION FINAL ADVENTURE WORKS\FACT_PRODUCT_INVENTORY_ETL.Inputs[ADO NET Destination Input].Columns[UnitCost]"
-                      cachedDataType="cy"
-                      cachedName="UnitCost"
-                      externalMetadataColumnId="Package\ETL EVALUACION FINAL ADVENTURE WORKS\FACT_PRODUCT_INVENTORY_ETL.Inputs[ADO NET Destination Input].ExternalColumns[UnitCost]"
-                      lineageId="Package\ETL EVALUACION FINAL ADVENTURE WORKS\FACT_PRODUCT_INVENTORY_ORIGEN.Outputs[ADO NET Source Output].Columns[UnitCost]" />
-                    <inputColumn
-                      refId="Package\ETL EVALUACION FINAL ADVENTURE WORKS\FACT_PRODUCT_INVENTORY_ETL.Inputs[ADO NET Destination Input].Columns[UnitsIn]"
-                      cachedDataType="i4"
-                      cachedName="UnitsIn"
-                      externalMetadataColumnId="Package\ETL EVALUACION FINAL ADVENTURE WORKS\FACT_PRODUCT_INVENTORY_ETL.Inputs[ADO NET Destination Input].ExternalColumns[UnitsIn]"
-                      lineageId="Package\ETL EVALUACION FINAL ADVENTURE WORKS\FACT_PRODUCT_INVENTORY_ORIGEN.Outputs[ADO NET Source Output].Columns[UnitsIn]" />
-                    <inputColumn
-                      refId="Package\ETL EVALUACION FINAL ADVENTURE WORKS\FACT_PRODUCT_INVENTORY_ETL.Inputs[ADO NET Destination Input].Columns[UnitsOut]"
-                      cachedDataType="i4"
-                      cachedName="UnitsOut"
-                      externalMetadataColumnId="Package\ETL EVALUACION FINAL ADVENTURE WORKS\FACT_PRODUCT_INVENTORY_ETL.Inputs[ADO NET Destination Input].ExternalColumns[UnitsOut]"
-                      lineageId="Package\ETL EVALUACION FINAL ADVENTURE WORKS\FACT_PRODUCT_INVENTORY_ORIGEN.Outputs[ADO NET Source Output].Columns[UnitsOut]" />
-                    <inputColumn
-                      refId="Package\ETL EVALUACION FINAL ADVENTURE WORKS\FACT_PRODUCT_INVENTORY_ETL.Inputs[ADO NET Destination Input].Columns[UnitsBalance]"
-                      cachedDataType="i4"
-                      cachedName="UnitsBalance"
-                      externalMetadataColumnId="Package\ETL EVALUACION FINAL ADVENTURE WORKS\FACT_PRODUCT_INVENTORY_ETL.Inputs[ADO NET Destination Input].ExternalColumns[UnitsBalance]"
-                      lineageId="Package\ETL EVALUACION FINAL ADVENTURE WORKS\FACT_PRODUCT_INVENTORY_ORIGEN.Outputs[ADO NET Source Output].Columns[UnitsBalance]" />
-                  </inputColumns>
-                  <externalMetadataColumns
-                    isUsed="True">
-                    <externalMetadataColumn
-                      refId="Package\ETL EVALUACION FINAL ADVENTURE WORKS\FACT_PRODUCT_INVENTORY_ETL.Inputs[ADO NET Destination Input].ExternalColumns[ProductKey]"
-                      dataType="i4"
-                      name="ProductKey" />
-                    <externalMetadataColumn
-                      refId="Package\ETL EVALUACION FINAL ADVENTURE WORKS\FACT_PRODUCT_INVENTORY_ETL.Inputs[ADO NET Destination Input].ExternalColumns[DateKey]"
-                      dataType="i4"
-                      name="DateKey" />
-                    <externalMetadataColumn
-                      refId="Package\ETL EVALUACION FINAL ADVENTURE WORKS\FACT_PRODUCT_INVENTORY_ETL.Inputs[ADO NET Destination Input].ExternalColumns[MovementDate]"
-                      dataType="dbTimeStamp"
-                      name="MovementDate" />
-                    <externalMetadataColumn
-                      refId="Package\ETL EVALUACION FINAL ADVENTURE WORKS\FACT_PRODUCT_INVENTORY_ETL.Inputs[ADO NET Destination Input].ExternalColumns[UnitCost]"
-                      dataType="numeric"
-                      name="UnitCost"
-                      precision="19"
-                      scale="255" />
-                    <externalMetadataColumn
-                      refId="Package\ETL EVALUACION FINAL ADVENTURE WORKS\FACT_PRODUCT_INVENTORY_ETL.Inputs[ADO NET Destination Input].ExternalColumns[UnitsIn]"
-                      dataType="i4"
-                      name="UnitsIn" />
-                    <externalMetadataColumn
-                      refId="Package\ETL EVALUACION FINAL ADVENTURE WORKS\FACT_PRODUCT_INVENTORY_ETL.Inputs[ADO NET Destination Input].ExternalColumns[UnitsOut]"
-                      dataType="i4"
-                      name="UnitsOut" />
-                    <externalMetadataColumn
-                      refId="Package\ETL EVALUACION FINAL ADVENTURE WORKS\FACT_PRODUCT_INVENTORY_ETL.Inputs[ADO NET Destination Input].ExternalColumns[UnitsBalance]"
-                      dataType="i4"
-                      name="UnitsBalance" />
-                  </externalMetadataColumns>
-                </input>
-              </inputs>
-              <outputs>
-                <output
-                  refId="Package\ETL EVALUACION FINAL ADVENTURE WORKS\FACT_PRODUCT_INVENTORY_ETL.Outputs[ADO NET Destination Error Output]"
-                  exclusionGroup="1"
-                  isErrorOut="true"
-                  name="ADO NET Destination Error Output"
-                  synchronousInputId="Package\ETL EVALUACION FINAL ADVENTURE WORKS\FACT_PRODUCT_INVENTORY_ETL.Inputs[ADO NET Destination Input]">
-                  <outputColumns>
-                    <outputColumn
-                      refId="Package\ETL EVALUACION FINAL ADVENTURE WORKS\FACT_PRODUCT_INVENTORY_ETL.Outputs[ADO NET Destination Error Output].Columns[ErrorCode]"
-                      dataType="i4"
-                      lineageId="Package\ETL EVALUACION FINAL ADVENTURE WORKS\FACT_PRODUCT_INVENTORY_ETL.Outputs[ADO NET Destination Error Output].Columns[ErrorCode]"
-                      name="ErrorCode"
-                      specialFlags="1" />
-                    <outputColumn
-                      refId="Package\ETL EVALUACION FINAL ADVENTURE WORKS\FACT_PRODUCT_INVENTORY_ETL.Outputs[ADO NET Destination Error Output].Columns[ErrorColumn]"
-                      dataType="i4"
-                      lineageId="Package\ETL EVALUACION FINAL ADVENTURE WORKS\FACT_PRODUCT_INVENTORY_ETL.Outputs[ADO NET Destination Error Output].Columns[ErrorColumn]"
-                      name="ErrorColumn"
-                      specialFlags="2" />
-                  </outputColumns>
-                  <externalMetadataColumns />
-                </output>
-              </outputs>
-            </component>
-            <component
-              refId="Package\ETL EVALUACION FINAL ADVENTURE WORKS\FACT_PRODUCT_INVENTORY_ORIGEN"
-              componentClassID="Microsoft.ManagedComponentHost"
-              contactInfo="Consumes data from SQL Server, OLE DB, ODBC, or Oracle, using the corresponding .NET Framework data provider. Use a Transact-SQL statement to define the result set. For example, extract data from SQL Server with the .NET Framework data provider for SQL Server.;Microsoft Corporation; Microsoft SQL Server; © Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;4"
-              description="Consumes data from SQL Server, OLE DB, ODBC, or Oracle, using the corresponding .NET Framework data provider. Use a Transact-SQL statement to define the result set. For example, extract data from SQL Server with the .NET Framework data provider for SQL Server."
-              name="FACT_PRODUCT_INVENTORY_ORIGEN"
-              usesDispositions="true"
-              version="4">
-              <properties>
-                <property
-                  dataType="System.String"
-                  description="Specifies the SQL statement used by the component to extract data."
-                  expressionType="Notify"
-                  name="SqlCommand"
-                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor"></property>
-                <property
-                  dataType="System.Int32"
-                  description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
-                  name="CommandTimeout">30</property>
-                <property
-                  dataType="System.Boolean"
-                  description="Indicates whether to allow non-string external columns to be implicitly converted to strings at the output columns."
-                  name="AllowImplicitStringConversion">true</property>
-                <property
-                  dataType="System.String"
-                  description="The Source database table name."
-                  expressionType="Notify"
-                  name="TableOrViewName"
-                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor">"dbo"."FactProductInventory"</property>
-                <property
-                  dataType="System.Int32"
-                  description="Specify the mode to retrieve external column information"
-                  name="AccessMode"
-                  typeConverter="Microsoft.SqlServer.Dts.Pipeline.DataReaderSourceAdapter+EnumToStringConverter">0</property>
-                <property
-                  dataType="System.String"
-                  name="UserComponentTypeName">Microsoft.DataReaderSourceAdapter</property>
-              </properties>
-              <connections>
-                <connection
-                  refId="Package\ETL EVALUACION FINAL ADVENTURE WORKS\FACT_PRODUCT_INVENTORY_ORIGEN.Connections[IDbConnection]"
-                  connectionManagerID="{AEE47F92-F543-498B-9D83-02AD93978101}:external"
-                  connectionManagerRefId="Project.ConnectionManagers[localhost.AdventureWorksDW2022]"
-                  description="Managed connection manager"
-                  name="IDbConnection" />
-              </connections>
-              <outputs>
-                <output
-                  refId="Package\ETL EVALUACION FINAL ADVENTURE WORKS\FACT_PRODUCT_INVENTORY_ORIGEN.Outputs[ADO NET Source Output]"
-                  name="ADO NET Source Output">
-                  <outputColumns>
-                    <outputColumn
-                      refId="Package\ETL EVALUACION FINAL ADVENTURE WORKS\FACT_PRODUCT_INVENTORY_ORIGEN.Outputs[ADO NET Source Output].Columns[ProductKey]"
-                      dataType="i4"
-                      errorOrTruncationOperation="Conversion"
-                      errorRowDisposition="FailComponent"
-                      externalMetadataColumnId="Package\ETL EVALUACION FINAL ADVENTURE WORKS\FACT_PRODUCT_INVENTORY_ORIGEN.Outputs[ADO NET Source Output].ExternalColumns[ProductKey]"
-                      lineageId="Package\ETL EVALUACION FINAL ADVENTURE WORKS\FACT_PRODUCT_INVENTORY_ORIGEN.Outputs[ADO NET Source Output].Columns[ProductKey]"
-                      name="ProductKey"
-                      truncationRowDisposition="FailComponent" />
-                    <outputColumn
-                      refId="Package\ETL EVALUACION FINAL ADVENTURE WORKS\FACT_PRODUCT_INVENTORY_ORIGEN.Outputs[ADO NET Source Output].Columns[DateKey]"
-                      dataType="i4"
-                      errorOrTruncationOperation="Conversion"
-                      errorRowDisposition="FailComponent"
-                      externalMetadataColumnId="Package\ETL EVALUACION FINAL ADVENTURE WORKS\FACT_PRODUCT_INVENTORY_ORIGEN.Outputs[ADO NET Source Output].ExternalColumns[DateKey]"
-                      lineageId="Package\ETL EVALUACION FINAL ADVENTURE WORKS\FACT_PRODUCT_INVENTORY_ORIGEN.Outputs[ADO NET Source Output].Columns[DateKey]"
-                      name="DateKey"
-                      truncationRowDisposition="FailComponent" />
-                    <outputColumn
-                      refId="Package\ETL EVALUACION FINAL ADVENTURE WORKS\FACT_PRODUCT_INVENTORY_ORIGEN.Outputs[ADO NET Source Output].Columns[MovementDate]"
-                      dataType="dbDate"
-                      errorOrTruncationOperation="Conversion"
-                      errorRowDisposition="FailComponent"
-                      externalMetadataColumnId="Package\ETL EVALUACION FINAL ADVENTURE WORKS\FACT_PRODUCT_INVENTORY_ORIGEN.Outputs[ADO NET Source Output].ExternalColumns[MovementDate]"
-                      lineageId="Package\ETL EVALUACION FINAL ADVENTURE WORKS\FACT_PRODUCT_INVENTORY_ORIGEN.Outputs[ADO NET Source Output].Columns[MovementDate]"
-                      name="MovementDate"
-                      truncationRowDisposition="FailComponent" />
-                    <outputColumn
-                      refId="Package\ETL EVALUACION FINAL ADVENTURE WORKS\FACT_PRODUCT_INVENTORY_ORIGEN.Outputs[ADO NET Source Output].Columns[UnitCost]"
-                      dataType="cy"
-                      errorOrTruncationOperation="Conversion"
-                      errorRowDisposition="FailComponent"
-                      externalMetadataColumnId="Package\ETL EVALUACION FINAL ADVENTURE WORKS\FACT_PRODUCT_INVENTORY_ORIGEN.Outputs[ADO NET Source Output].ExternalColumns[UnitCost]"
-                      lineageId="Package\ETL EVALUACION FINAL ADVENTURE WORKS\FACT_PRODUCT_INVENTORY_ORIGEN.Outputs[ADO NET Source Output].Columns[UnitCost]"
-                      name="UnitCost"
-                      truncationRowDisposition="FailComponent" />
-                    <outputColumn
-                      refId="Package\ETL EVALUACION FINAL ADVENTURE WORKS\FACT_PRODUCT_INVENTORY_ORIGEN.Outputs[ADO NET Source Output].Columns[UnitsIn]"
-                      dataType="i4"
-                      errorOrTruncationOperation="Conversion"
-                      errorRowDisposition="FailComponent"
-                      externalMetadataColumnId="Package\ETL EVALUACION FINAL ADVENTURE WORKS\FACT_PRODUCT_INVENTORY_ORIGEN.Outputs[ADO NET Source Output].ExternalColumns[UnitsIn]"
-                      lineageId="Package\ETL EVALUACION FINAL ADVENTURE WORKS\FACT_PRODUCT_INVENTORY_ORIGEN.Outputs[ADO NET Source Output].Columns[UnitsIn]"
-                      name="UnitsIn"
-                      truncationRowDisposition="FailComponent" />
-                    <outputColumn
-                      refId="Package\ETL EVALUACION FINAL ADVENTURE WORKS\FACT_PRODUCT_INVENTORY_ORIGEN.Outputs[ADO NET Source Output].Columns[UnitsOut]"
-                      dataType="i4"
-                      errorOrTruncationOperation="Conversion"
-                      errorRowDisposition="FailComponent"
-                      externalMetadataColumnId="Package\ETL EVALUACION FINAL ADVENTURE WORKS\FACT_PRODUCT_INVENTORY_ORIGEN.Outputs[ADO NET Source Output].ExternalColumns[UnitsOut]"
-                      lineageId="Package\ETL EVALUACION FINAL ADVENTURE WORKS\FACT_PRODUCT_INVENTORY_ORIGEN.Outputs[ADO NET Source Output].Columns[UnitsOut]"
-                      name="UnitsOut"
-                      truncationRowDisposition="FailComponent" />
-                    <outputColumn
-                      refId="Package\ETL EVALUACION FINAL ADVENTURE WORKS\FACT_PRODUCT_INVENTORY_ORIGEN.Outputs[ADO NET Source Output].Columns[UnitsBalance]"
-                      dataType="i4"
-                      errorOrTruncationOperation="Conversion"
-                      errorRowDisposition="FailComponent"
-                      externalMetadataColumnId="Package\ETL EVALUACION FINAL ADVENTURE WORKS\FACT_PRODUCT_INVENTORY_ORIGEN.Outputs[ADO NET Source Output].ExternalColumns[UnitsBalance]"
-                      lineageId="Package\ETL EVALUACION FINAL ADVENTURE WORKS\FACT_PRODUCT_INVENTORY_ORIGEN.Outputs[ADO NET Source Output].Columns[UnitsBalance]"
-                      name="UnitsBalance"
-                      truncationRowDisposition="FailComponent" />
-                  </outputColumns>
-                  <externalMetadataColumns
-                    isUsed="True">
-                    <externalMetadataColumn
-                      refId="Package\ETL EVALUACION FINAL ADVENTURE WORKS\FACT_PRODUCT_INVENTORY_ORIGEN.Outputs[ADO NET Source Output].ExternalColumns[ProductKey]"
-                      dataType="i4"
-                      name="ProductKey" />
-                    <externalMetadataColumn
-                      refId="Package\ETL EVALUACION FINAL ADVENTURE WORKS\FACT_PRODUCT_INVENTORY_ORIGEN.Outputs[ADO NET Source Output].ExternalColumns[DateKey]"
-                      dataType="i4"
-                      name="DateKey" />
-                    <externalMetadataColumn
-                      refId="Package\ETL EVALUACION FINAL ADVENTURE WORKS\FACT_PRODUCT_INVENTORY_ORIGEN.Outputs[ADO NET Source Output].ExternalColumns[MovementDate]"
-                      dataType="dbDate"
-                      name="MovementDate" />
-                    <externalMetadataColumn
-                      refId="Package\ETL EVALUACION FINAL ADVENTURE WORKS\FACT_PRODUCT_INVENTORY_ORIGEN.Outputs[ADO NET Source Output].ExternalColumns[UnitCost]"
-                      dataType="cy"
-                      name="UnitCost" />
-                    <externalMetadataColumn
-                      refId="Package\ETL EVALUACION FINAL ADVENTURE WORKS\FACT_PRODUCT_INVENTORY_ORIGEN.Outputs[ADO NET Source Output].ExternalColumns[UnitsIn]"
-                      dataType="i4"
-                      name="UnitsIn" />
-                    <externalMetadataColumn
-                      refId="Package\ETL EVALUACION FINAL ADVENTURE WORKS\FACT_PRODUCT_INVENTORY_ORIGEN.Outputs[ADO NET Source Output].ExternalColumns[UnitsOut]"
-                      dataType="i4"
-                      name="UnitsOut" />
-                    <externalMetadataColumn
-                      refId="Package\ETL EVALUACION FINAL ADVENTURE WORKS\FACT_PRODUCT_INVENTORY_ORIGEN.Outputs[ADO NET Source Output].ExternalColumns[UnitsBalance]"
-                      dataType="i4"
-                      name="UnitsBalance" />
-                  </externalMetadataColumns>
-                </output>
-                <output
-                  refId="Package\ETL EVALUACION FINAL ADVENTURE WORKS\FACT_PRODUCT_INVENTORY_ORIGEN.Outputs[ADO NET Source Error Output]"
-                  isErrorOut="true"
-                  name="ADO NET Source Error Output">
-                  <outputColumns>
-                    <outputColumn
-                      refId="Package\ETL EVALUACION FINAL ADVENTURE WORKS\FACT_PRODUCT_INVENTORY_ORIGEN.Outputs[ADO NET Source Error Output].Columns[ProductKey]"
-                      dataType="i4"
-                      lineageId="Package\ETL EVALUACION FINAL ADVENTURE WORKS\FACT_PRODUCT_INVENTORY_ORIGEN.Outputs[ADO NET Source Error Output].Columns[ProductKey]"
-                      name="ProductKey" />
-                    <outputColumn
-                      refId="Package\ETL EVALUACION FINAL ADVENTURE WORKS\FACT_PRODUCT_INVENTORY_ORIGEN.Outputs[ADO NET Source Error Output].Columns[DateKey]"
-                      dataType="i4"
-                      lineageId="Package\ETL EVALUACION FINAL ADVENTURE WORKS\FACT_PRODUCT_INVENTORY_ORIGEN.Outputs[ADO NET Source Error Output].Columns[DateKey]"
-                      name="DateKey" />
-                    <outputColumn
-                      refId="Package\ETL EVALUACION FINAL ADVENTURE WORKS\FACT_PRODUCT_INVENTORY_ORIGEN.Outputs[ADO NET Source Error Output].Columns[MovementDate]"
-                      dataType="dbDate"
-                      lineageId="Package\ETL EVALUACION FINAL ADVENTURE WORKS\FACT_PRODUCT_INVENTORY_ORIGEN.Outputs[ADO NET Source Error Output].Columns[MovementDate]"
-                      name="MovementDate" />
-                    <outputColumn
-                      refId="Package\ETL EVALUACION FINAL ADVENTURE WORKS\FACT_PRODUCT_INVENTORY_ORIGEN.Outputs[ADO NET Source Error Output].Columns[UnitCost]"
-                      dataType="cy"
-                      lineageId="Package\ETL EVALUACION FINAL ADVENTURE WORKS\FACT_PRODUCT_INVENTORY_ORIGEN.Outputs[ADO NET Source Error Output].Columns[UnitCost]"
-                      name="UnitCost" />
-                    <outputColumn
-                      refId="Package\ETL EVALUACION FINAL ADVENTURE WORKS\FACT_PRODUCT_INVENTORY_ORIGEN.Outputs[ADO NET Source Error Output].Columns[UnitsIn]"
-                      dataType="i4"
-                      lineageId="Package\ETL EVALUACION FINAL ADVENTURE WORKS\FACT_PRODUCT_INVENTORY_ORIGEN.Outputs[ADO NET Source Error Output].Columns[UnitsIn]"
-                      name="UnitsIn" />
-                    <outputColumn
-                      refId="Package\ETL EVALUACION FINAL ADVENTURE WORKS\FACT_PRODUCT_INVENTORY_ORIGEN.Outputs[ADO NET Source Error Output].Columns[UnitsOut]"
-                      dataType="i4"
-                      lineageId="Package\ETL EVALUACION FINAL ADVENTURE WORKS\FACT_PRODUCT_INVENTORY_ORIGEN.Outputs[ADO NET Source Error Output].Columns[UnitsOut]"
-                      name="UnitsOut" />
-                    <outputColumn
-                      refId="Package\ETL EVALUACION FINAL ADVENTURE WORKS\FACT_PRODUCT_INVENTORY_ORIGEN.Outputs[ADO NET Source Error Output].Columns[UnitsBalance]"
-                      dataType="i4"
-                      lineageId="Package\ETL EVALUACION FINAL ADVENTURE WORKS\FACT_PRODUCT_INVENTORY_ORIGEN.Outputs[ADO NET Source Error Output].Columns[UnitsBalance]"
-                      name="UnitsBalance" />
-                    <outputColumn
-                      refId="Package\ETL EVALUACION FINAL ADVENTURE WORKS\FACT_PRODUCT_INVENTORY_ORIGEN.Outputs[ADO NET Source Error Output].Columns[ErrorCode]"
-                      dataType="i4"
-                      lineageId="Package\ETL EVALUACION FINAL ADVENTURE WORKS\FACT_PRODUCT_INVENTORY_ORIGEN.Outputs[ADO NET Source Error Output].Columns[ErrorCode]"
-                      name="ErrorCode"
-                      specialFlags="1" />
-                    <outputColumn
-                      refId="Package\ETL EVALUACION FINAL ADVENTURE WORKS\FACT_PRODUCT_INVENTORY_ORIGEN.Outputs[ADO NET Source Error Output].Columns[ErrorColumn]"
-                      dataType="i4"
-                      lineageId="Package\ETL EVALUACION FINAL ADVENTURE WORKS\FACT_PRODUCT_INVENTORY_ORIGEN.Outputs[ADO NET Source Error Output].Columns[ErrorColumn]"
-                      name="ErrorColumn"
-                      specialFlags="2" />
-                  </outputColumns>
-                  <externalMetadataColumns />
-                </output>
-              </outputs>
-            </component>
           </components>
           <paths>
             <path
               refId="Package\ETL EVALUACION FINAL ADVENTURE WORKS.Paths[ADO NET Source Output]"
-              endId="Package\ETL EVALUACION FINAL ADVENTURE WORKS\DIM DATE ETL.Inputs[ADO NET Destination Input]"
+              endId="Package\ETL EVALUACION FINAL ADVENTURE WORKS\DIM_DATE_ETL.Inputs[ADO NET Destination Input]"
               name="ADO NET Source Output"
               startId="Package\ETL EVALUACION FINAL ADVENTURE WORKS\DIM DATE ORIGEN.Outputs[ADO NET Source Output]" />
             <path
               refId="Package\ETL EVALUACION FINAL ADVENTURE WORKS.Paths[ADO NET Source Output1]"
-              endId="Package\ETL EVALUACION FINAL ADVENTURE WORKS\DIM PRODUCT CATEGORY ETL.Inputs[ADO NET Destination Input]"
+              endId="Package\ETL EVALUACION FINAL ADVENTURE WORKS\DIM_PRODUCT_CATEGORY_ETL.Inputs[ADO NET Destination Input]"
               name="ADO NET Source Output"
               startId="Package\ETL EVALUACION FINAL ADVENTURE WORKS\DIM PRODUCT CATEGORY ORIGEN.Outputs[ADO NET Source Output]" />
             <path
@@ -3095,16 +3608,21 @@
               endId="Package\ETL EVALUACION FINAL ADVENTURE WORKS\DIM_PRODUCT_ETL.Inputs[ADO NET Destination Input]"
               name="ADO NET Source Output"
               startId="Package\ETL EVALUACION FINAL ADVENTURE WORKS\DIM_PRODUCT_ORIGEN.Outputs[ADO NET Source Output]" />
-            <path
-              refId="Package\ETL EVALUACION FINAL ADVENTURE WORKS.Paths[ADO NET Source Output4]"
-              endId="Package\ETL EVALUACION FINAL ADVENTURE WORKS\FACT_PRODUCT_INVENTORY_ETL.Inputs[ADO NET Destination Input]"
-              name="ADO NET Source Output"
-              startId="Package\ETL EVALUACION FINAL ADVENTURE WORKS\FACT_PRODUCT_INVENTORY_ORIGEN.Outputs[ADO NET Source Output]" />
           </paths>
         </pipeline>
       </DTS:ObjectData>
     </DTS:Executable>
   </DTS:Executables>
+  <DTS:PrecedenceConstraints>
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[Constraint]"
+      DTS:CreationName=""
+      DTS:DTSID="{E86790E2-D3ED-4F63-AA96-D894107B3913}"
+      DTS:From="Package\ETL EVALUACION FINAL ADVENTURE WORKS"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="Constraint"
+      DTS:To="Package\Data Flow Task" />
+  </DTS:PrecedenceConstraints>
   <DTS:DesignTimeProperties><![CDATA[<?xml version="1.0"?>
 <!--This CDATA section contains the layout information of the package. The section includes information such as (x,y) coordinates, width, and height.-->
 <!--If you manually edit this section and make a mistake, you can delete it. -->
@@ -3116,87 +3634,256 @@
     design-time-name="Package">
     <LayoutInfo>
       <GraphLayout
-        Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph">
+        Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
+        <NodeLayout
+          Size="151.5,42"
+          Id="Package\Data Flow Task"
+          TopLeft="329.5,193" />
         <NodeLayout
           Size="295.5,42"
           Id="Package\ETL EVALUACION FINAL ADVENTURE WORKS"
-          TopLeft="258,89" />
+          TopLeft="259.5,88.5" />
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[Constraint]"
+          TopLeft="406.25,130.5">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,62.5"
+              Start="0,0"
+              End="0,55">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,55" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
       </GraphLayout>
     </LayoutInfo>
   </Package>
   <TaskHost
+    design-time-name="Package\Data Flow Task">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="8" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:mssgm="clr-namespace:Microsoft.SqlServer.Graph.Model;assembly=Microsoft.SqlServer.Graph">
+        <NodeLayout
+          Size="263.5,42"
+          Id="Package\Data Flow Task\FACT_PRODUCT_INVENTORY_ORIGEN"
+          TopLeft="66.5,46" />
+        <NodeLayout
+          Size="192.5,42"
+          Id="Package\Data Flow Task\COLUMNAS DERIVADAS"
+          TopLeft="82.5,154.5" />
+        <NodeLayout
+          Size="113,42"
+          Id="Package\Data Flow Task\Lookup"
+          TopLeft="452,136" />
+        <EdgeLayout
+          Id="Package\Data Flow Task.Paths[ADO NET Source Output]"
+          TopLeft="198.25,88">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="310.25,48"
+              Start="0,0"
+              End="310.25,40.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,20" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,20"
+                    Point2="0,24"
+                    Point3="4,24" />
+                  <mssgle:LineSegment
+                    End="306.25,24" />
+                  <mssgle:CubicBezierSegment
+                    Point1="306.25,24"
+                    Point2="310.25,24"
+                    Point3="310.25,28" />
+                  <mssgle:LineSegment
+                    End="310.25,40.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="124.54546875,29,61.1590625,9.6025390625"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\Data Flow Task.Paths[Lookup Match Output]"
+          TopLeft="452,157">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="-177,18.5"
+              Start="0,0"
+              End="-169.5,18.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="-84.5,0" />
+                  <mssgle:CubicBezierSegment
+                    Point1="-84.5,0"
+                    Point2="-88.5,0"
+                    Point3="-88.5,4" />
+                  <mssgle:LineSegment
+                    End="-88.5,14.5" />
+                  <mssgle:CubicBezierSegment
+                    Point1="-88.5,14.5"
+                    Point2="-88.5,18.5"
+                    Point3="-92.5,18.5" />
+                  <mssgle:LineSegment
+                    End="-169.5,18.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="-171.74173828125,-17.609375,166.4834765625,11.609375"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <NodeLayout
+          Size="242.5,42"
+          Id="Package\Data Flow Task\FACT_PRODUCT_INVENTORY_ETL"
+          TopLeft="202.5,298.5" />
+        <EdgeLayout
+          Id="Package\Data Flow Task.Paths[Derived Column Output]"
+          TopLeft="178.75,196.5">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="113.25,102"
+              Start="0,0"
+              End="113.25,94.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,47" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,47"
+                    Point2="0,51"
+                    Point3="4,51" />
+                  <mssgle:LineSegment
+                    End="109.25,51" />
+                  <mssgle:CubicBezierSegment
+                    Point1="109.25,51"
+                    Point2="113.25,51"
+                    Point3="113.25,55" />
+                  <mssgle:LineSegment
+                    End="113.25,94.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="26.04546875,56,61.1590625,9.6025390625"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+      </GraphLayout>
+    </LayoutInfo>
+  </TaskHost>
+  <PipelineComponentMetadata
+    design-time-name="Package\Data Flow Task\Lookup">
+    <Properties>
+      <Property>
+        <Name>OverwriteParamsSQLProp</Name>
+        <Value
+          type="q2:boolean">false</Value>
+      </Property>
+      <Property>
+        <Name>UsedTableName</Name>
+        <Value
+          type="q3:string">[dbo].[DIM_PRODUCT_ETL]</Value>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q4:int">0</Value>
+      </Property>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <TaskHost
     design-time-name="Package\ETL EVALUACION FINAL ADVENTURE WORKS">
     <LayoutInfo>
       <GraphLayout
-        Capacity="16" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
+        Capacity="16" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:mssgm="clr-namespace:Microsoft.SqlServer.Graph.Model;assembly=Microsoft.SqlServer.Graph">
+        <NodeLayout
+          Size="179,42"
+          Id="Package\ETL EVALUACION FINAL ADVENTURE WORKS\DIM_PRODUCT_ETL"
+          TopLeft="55,369" />
+        <NodeLayout
+          Size="153.5,42"
+          Id="Package\ETL EVALUACION FINAL ADVENTURE WORKS\DIM_DATE_ETL"
+          TopLeft="60.5,161" />
+        <NodeLayout
+          Size="201,48"
+          Id="Package\ETL EVALUACION FINAL ADVENTURE WORKS\DIM_PRODUCT_SUBCATEGORY_ETL"
+          TopLeft="540.5,155" />
+        <NodeLayout
+          Size="233,42"
+          Id="Package\ETL EVALUACION FINAL ADVENTURE WORKS\DIM_PRODUCT_CATEGORY_ETL"
+          TopLeft="265.5,170" />
+        <NodeLayout
+          Size="195.5,42"
+          Id="Package\ETL EVALUACION FINAL ADVENTURE WORKS\DIM_PRODUCT_ORIGEN"
+          TopLeft="43.5,262.5" />
+        <NodeLayout
+          Size="229.5,53.5"
+          Id="Package\ETL EVALUACION FINAL ADVENTURE WORKS\DIM PRODUCT CATEGORY ORIGEN"
+          TopLeft="278.5,47.5" />
         <NodeLayout
           Size="169.5,42"
           Id="Package\ETL EVALUACION FINAL ADVENTURE WORKS\DIM DATE ORIGEN"
           TopLeft="50.5,51" />
         <NodeLayout
-          Size="148.5,42"
-          Id="Package\ETL EVALUACION FINAL ADVENTURE WORKS\DIM DATE ETL"
-          TopLeft="61,163.5" />
-        <EdgeLayout
-          Id="Package\ETL EVALUACION FINAL ADVENTURE WORKS.Paths[ADO NET Source Output]"
-          TopLeft="135.25,93">
-          <EdgeLayout.Curve>
-            <mssgle:Curve
-              StartConnector="{assembly:Null}"
-              EndConnector="0,70.5"
-              Start="0,0"
-              End="0,63">
-              <mssgle:Curve.Segments>
-                <mssgle:SegmentCollection
-                  Capacity="5">
-                  <mssgle:LineSegment
-                    End="0,63" />
-                </mssgle:SegmentCollection>
-              </mssgle:Curve.Segments>
-            </mssgle:Curve>
-          </EdgeLayout.Curve>
-          <EdgeLayout.Labels>
-            <EdgeLabelCollection />
-          </EdgeLayout.Labels>
-        </EdgeLayout>
-        <NodeLayout
-          Size="179,42"
-          Id="Package\ETL EVALUACION FINAL ADVENTURE WORKS\DIM PRODUCT CATEGORY ETL"
-          TopLeft="299.5,160.5" />
-        <NodeLayout
-          Size="229.5,53.5"
-          Id="Package\ETL EVALUACION FINAL ADVENTURE WORKS\DIM PRODUCT CATEGORY ORIGEN"
-          TopLeft="278.5,47.5" />
-        <EdgeLayout
-          Id="Package\ETL EVALUACION FINAL ADVENTURE WORKS.Paths[ADO NET Source Output1]"
-          TopLeft="391.125,101">
-          <EdgeLayout.Curve>
-            <mssgle:Curve
-              StartConnector="{assembly:Null}"
-              EndConnector="0,59.5"
-              Start="0,0"
-              End="0,52">
-              <mssgle:Curve.Segments>
-                <mssgle:SegmentCollection
-                  Capacity="5">
-                  <mssgle:LineSegment
-                    End="0,52" />
-                </mssgle:SegmentCollection>
-              </mssgle:Curve.Segments>
-            </mssgle:Curve>
-          </EdgeLayout.Curve>
-          <EdgeLayout.Labels>
-            <EdgeLabelCollection />
-          </EdgeLayout.Labels>
-        </EdgeLayout>
-        <NodeLayout
           Size="233,42"
           Id="Package\ETL EVALUACION FINAL ADVENTURE WORKS\DIM_PRODUCT_SUBCATEGORY_ETL_ORIGEN"
           TopLeft="557.5,51.5" />
-        <NodeLayout
-          Size="201,48"
-          Id="Package\ETL EVALUACION FINAL ADVENTURE WORKS\DIM_PRODUCT_SUBCATEGORY_ETL"
-          TopLeft="540.5,155" />
+        <EdgeLayout
+          Id="Package\ETL EVALUACION FINAL ADVENTURE WORKS.Paths[ADO NET Source Output3]"
+          TopLeft="142.875,304.5">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,64.5"
+              Start="0,0"
+              End="0,57">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,57" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="0,0,0,0"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
         <EdgeLayout
           Id="Package\ETL EVALUACION FINAL ADVENTURE WORKS.Paths[ADO NET Source Output2]"
           TopLeft="674,93.5">
@@ -3228,86 +3915,76 @@
             </mssgle:Curve>
           </EdgeLayout.Curve>
           <EdgeLayout.Labels>
-            <EdgeLabelCollection />
+            <mssgm:EdgeLabel
+              BoundingBox="0,0,0,0"
+              RelativePosition="Any" />
           </EdgeLayout.Labels>
         </EdgeLayout>
-        <NodeLayout
-          Size="195.5,42"
-          Id="Package\ETL EVALUACION FINAL ADVENTURE WORKS\DIM_PRODUCT_ORIGEN"
-          TopLeft="43.5,262.5" />
-        <NodeLayout
-          Size="179,42"
-          Id="Package\ETL EVALUACION FINAL ADVENTURE WORKS\DIM_PRODUCT_ETL"
-          TopLeft="55,369" />
         <EdgeLayout
-          Id="Package\ETL EVALUACION FINAL ADVENTURE WORKS.Paths[ADO NET Source Output3]"
-          TopLeft="142.875,304.5">
+          Id="Package\ETL EVALUACION FINAL ADVENTURE WORKS.Paths[ADO NET Source Output1]"
+          TopLeft="393.25,101">
           <EdgeLayout.Curve>
             <mssgle:Curve
               StartConnector="{assembly:Null}"
-              EndConnector="0,64.5"
+              EndConnector="-11.25,69"
               Start="0,0"
-              End="0,57">
+              End="-11.25,61.5">
               <mssgle:Curve.Segments>
                 <mssgle:SegmentCollection
                   Capacity="5">
                   <mssgle:LineSegment
-                    End="0,57" />
+                    End="0,30.5" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,30.5"
+                    Point2="0,34.5"
+                    Point3="-4,34.5" />
+                  <mssgle:LineSegment
+                    End="-7.25,34.5" />
+                  <mssgle:CubicBezierSegment
+                    Point1="-7.25,34.5"
+                    Point2="-11.25,34.5"
+                    Point3="-11.25,38.5" />
+                  <mssgle:LineSegment
+                    End="-11.25,61.5" />
                 </mssgle:SegmentCollection>
               </mssgle:Curve.Segments>
             </mssgle:Curve>
           </EdgeLayout.Curve>
           <EdgeLayout.Labels>
-            <EdgeLabelCollection />
+            <mssgm:EdgeLabel
+              BoundingBox="0,0,0,0"
+              RelativePosition="Any" />
           </EdgeLayout.Labels>
         </EdgeLayout>
-        <NodeLayout
-          Size="242.5,42"
-          Id="Package\ETL EVALUACION FINAL ADVENTURE WORKS\FACT_PRODUCT_INVENTORY_ETL"
-          TopLeft="329,373" />
-        <NodeLayout
-          Size="263.5,42"
-          Id="Package\ETL EVALUACION FINAL ADVENTURE WORKS\FACT_PRODUCT_INVENTORY_ORIGEN"
-          TopLeft="296,266" />
         <EdgeLayout
-          Id="Package\ETL EVALUACION FINAL ADVENTURE WORKS.Paths[ADO NET Source Output4]"
-          TopLeft="427.75,308">
+          Id="Package\ETL EVALUACION FINAL ADVENTURE WORKS.Paths[ADO NET Source Output]"
+          TopLeft="136.25,93">
           <EdgeLayout.Curve>
             <mssgle:Curve
               StartConnector="{assembly:Null}"
-              EndConnector="22.5,65"
+              EndConnector="0,68"
               Start="0,0"
-              End="22.5,57.5">
+              End="0,60.5">
               <mssgle:Curve.Segments>
                 <mssgle:SegmentCollection
                   Capacity="5">
                   <mssgle:LineSegment
-                    End="0,28.5" />
-                  <mssgle:CubicBezierSegment
-                    Point1="0,28.5"
-                    Point2="0,32.5"
-                    Point3="4,32.5" />
-                  <mssgle:LineSegment
-                    End="18.5,32.5" />
-                  <mssgle:CubicBezierSegment
-                    Point1="18.5,32.5"
-                    Point2="22.5,32.5"
-                    Point3="22.5,36.5" />
-                  <mssgle:LineSegment
-                    End="22.5,57.5" />
+                    End="0,60.5" />
                 </mssgle:SegmentCollection>
               </mssgle:Curve.Segments>
             </mssgle:Curve>
           </EdgeLayout.Curve>
           <EdgeLayout.Labels>
-            <EdgeLabelCollection />
+            <mssgm:EdgeLabel
+              BoundingBox="0,0,0,0"
+              RelativePosition="Any" />
           </EdgeLayout.Labels>
         </EdgeLayout>
       </GraphLayout>
     </LayoutInfo>
   </TaskHost>
   <PipelineComponentMetadata
-    design-time-name="Package\ETL EVALUACION FINAL ADVENTURE WORKS\DIM DATE ORIGEN">
+    design-time-name="Package\ETL EVALUACION FINAL ADVENTURE WORKS\DIM_PRODUCT_ETL">
     <Properties>
       <Property>
         <Name>DataSourceViewID</Name>
@@ -3315,31 +3992,7 @@
     </Properties>
   </PipelineComponentMetadata>
   <PipelineComponentMetadata
-    design-time-name="Package\ETL EVALUACION FINAL ADVENTURE WORKS\DIM DATE ETL">
-    <Properties>
-      <Property>
-        <Name>DataSourceViewID</Name>
-      </Property>
-    </Properties>
-  </PipelineComponentMetadata>
-  <PipelineComponentMetadata
-    design-time-name="Package\ETL EVALUACION FINAL ADVENTURE WORKS\DIM PRODUCT CATEGORY ETL">
-    <Properties>
-      <Property>
-        <Name>DataSourceViewID</Name>
-      </Property>
-    </Properties>
-  </PipelineComponentMetadata>
-  <PipelineComponentMetadata
-    design-time-name="Package\ETL EVALUACION FINAL ADVENTURE WORKS\DIM PRODUCT CATEGORY ORIGEN">
-    <Properties>
-      <Property>
-        <Name>DataSourceViewID</Name>
-      </Property>
-    </Properties>
-  </PipelineComponentMetadata>
-  <PipelineComponentMetadata
-    design-time-name="Package\ETL EVALUACION FINAL ADVENTURE WORKS\DIM_PRODUCT_SUBCATEGORY_ETL_ORIGEN">
+    design-time-name="Package\ETL EVALUACION FINAL ADVENTURE WORKS\DIM_DATE_ETL">
     <Properties>
       <Property>
         <Name>DataSourceViewID</Name>
@@ -3355,6 +4008,14 @@
     </Properties>
   </PipelineComponentMetadata>
   <PipelineComponentMetadata
+    design-time-name="Package\ETL EVALUACION FINAL ADVENTURE WORKS\DIM_PRODUCT_CATEGORY_ETL">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
     design-time-name="Package\ETL EVALUACION FINAL ADVENTURE WORKS\DIM_PRODUCT_ORIGEN">
     <Properties>
       <Property>
@@ -3363,7 +4024,7 @@
     </Properties>
   </PipelineComponentMetadata>
   <PipelineComponentMetadata
-    design-time-name="Package\ETL EVALUACION FINAL ADVENTURE WORKS\DIM_PRODUCT_ETL">
+    design-time-name="Package\ETL EVALUACION FINAL ADVENTURE WORKS\DIM PRODUCT CATEGORY ORIGEN">
     <Properties>
       <Property>
         <Name>DataSourceViewID</Name>
@@ -3371,7 +4032,7 @@
     </Properties>
   </PipelineComponentMetadata>
   <PipelineComponentMetadata
-    design-time-name="Package\ETL EVALUACION FINAL ADVENTURE WORKS\FACT_PRODUCT_INVENTORY_ETL">
+    design-time-name="Package\ETL EVALUACION FINAL ADVENTURE WORKS\DIM DATE ORIGEN">
     <Properties>
       <Property>
         <Name>DataSourceViewID</Name>
@@ -3379,7 +4040,15 @@
     </Properties>
   </PipelineComponentMetadata>
   <PipelineComponentMetadata
-    design-time-name="Package\ETL EVALUACION FINAL ADVENTURE WORKS\FACT_PRODUCT_INVENTORY_ORIGEN">
+    design-time-name="Package\ETL EVALUACION FINAL ADVENTURE WORKS\DIM_PRODUCT_SUBCATEGORY_ETL_ORIGEN">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\Data Flow Task\FACT_PRODUCT_INVENTORY_ETL">
     <Properties>
       <Property>
         <Name>DataSourceViewID</Name>
